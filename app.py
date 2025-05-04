@@ -1,677 +1,258 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import os
-import joblib
-import tensorflow as tf
-try:
-    from tensorflow.keras.models import load_model
-except:
-    from keras.models import load_model
-import librosa
-import re
-import pickle
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-from sklearn.feature_extraction.text import TfidfVectorizer
 import matplotlib.pyplot as plt
-import io
 
-# Initialize NLTK components
-try:
-    nltk.data.find('tokenizers/punkt')
-    nltk.data.find('corpora/stopwords')
-    nltk.data.find('corpora/wordnet')
-except LookupError:
-    nltk.download('punkt')
-    nltk.download('stopwords')
-    nltk.download('wordnet')
+# Basic page setup
+st.set_page_config(page_title="Medical Diagnosis System", page_icon="🏥")
+st.title("Multimodal Medical Diagnosis System")
 
-# Set page config
-st.set_page_config(
-    page_title="Medical Diagnosis System",
-    page_icon="🏥",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# Custom CSS
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 2.5rem;
-        color: #0066cc;
-        margin-bottom: 1rem;
-    }
-    .sub-header {
-        font-size: 1.8rem;
-        color: #444;
-        margin-bottom: 1rem;
-    }
-    .result-box {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
-    }
-    .info-box {
-        background-color: #e7f5ff;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }
-    .demo-notice {
-        background-color: #fff3cd;
-        color: #856404;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# Helper Functions for Demo Mode
-def create_demo_models():
-    """Create demo models for testing when real models aren't available"""
-    import numpy as np
-    from sklearn.feature_extraction.text import TfidfVectorizer
-    from sklearn.svm import SVC
-    
-    st.markdown(
-        "<div class='demo-notice'>⚠️ <b>DEMO MODE</b>: Using simplified models for demonstration. "
-        "For full functionality, please upload trained models to the repository.</div>", 
-        unsafe_allow_html=True
-    )
-    
-    # Create simple text classifier
-    vectorizer = TfidfVectorizer(max_features=1000)
-    text_classifier = SVC(probability=True)
-    
-    # Simple example data
-    X_text = [
-        "I have a headache and fever",
-        "My stomach hurts and I feel nauseous",
-        "I have a sore throat and cough", 
-        "My joints are painful and swollen",
-        "I have a rash on my skin"
-    ]
-    y = [5, 4, 2, 3, 8]  # Indices mapping to class_labels
-    
-    # Fit vectorizer and classifier
-    X_transformed = vectorizer.fit_transform(X_text)
-    text_classifier.fit(X_transformed, y)
-    
-    # Create simple audio model
-    class SimpleAudioModel:
-        def predict(self, audio_features):
-            # Return random probabilities for demo purposes
-            return [np.random.dirichlet(np.ones(10), size=1)[0]]
-    
-    audio_model = SimpleAudioModel()
-    
-    # Simple combined model
-    class SimpleCombinedModel:
-        def predict_proba(self, features):
-            # Return random probabilities for demo purposes
-            return [np.random.dirichlet(np.ones(10), size=1)[0]]
-    
-    combined_model = SimpleCombinedModel()
-    
-    return text_classifier, vectorizer, audio_model, combined_model
-
-# Helper Functions for Model Loading
-@st.cache_resource
-def load_models():
-    """Load all required models with caching for better performance"""
-    try:
-        # Define possible model paths (both with and without 'models/' prefix)
-        model_paths = {
-            'text_classifier': ['models/text_classifier.pkl', 'text_classifier.pkl'],
-            'vectorizer': ['models/tfidf_vectorizer.pkl', 'tfidf_vectorizer.pkl'],
-            'audio_model': ['models/audio_model.h5', 'audio_model.h5'],
-            'combined_model': ['models/combined_classifier.pkl', 'combined_classifier.pkl']
-        }
-        
-        # Try to load models from disk
-        text_classifier = None
-        vectorizer = None
-        audio_model = None
-        combined_model = None
-        
-        # Try to load text classifier
-        for path in model_paths['text_classifier']:
-            try:
-                text_classifier = joblib.load(path)
-                st.success(f"Loaded text classifier from {path}")
-                break
-            except Exception as e:
-                continue
-                
-        # Try to load vectorizer
-        for path in model_paths['vectorizer']:
-            try:
-                vectorizer = joblib.load(path)
-                st.success(f"Loaded vectorizer from {path}")
-                break
-            except Exception as e:
-                continue
-                
-        # Try to load audio model
-        for path in model_paths['audio_model']:
-            try:
-                audio_model = load_model(path)
-                st.success(f"Loaded audio model from {path}")
-                break
-            except Exception as e:
-                continue
-                
-        # Try to load combined model
-        for path in model_paths['combined_model']:
-            try:
-                combined_model = joblib.load(path)
-                st.success(f"Loaded combined model from {path}")
-                break
-            except Exception as e:
-                continue
-        
-        # If any required model is missing, use demo models
-        if text_classifier is None or vectorizer is None or audio_model is None:
-            return create_demo_models()
-            
-        return text_classifier, vectorizer, audio_model, combined_model
-    except Exception as e:
-        st.warning(f"Error loading models: {str(e)}. Using demo models instead.")
-        return create_demo_models()
-
-def preprocess_text(text):
-    """Preprocess text input for model prediction"""
-    # Convert to lowercase
-    text = text.lower()
-    
-    # Remove special characters
-    text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
-    
-    # Tokenize
-    tokens = word_tokenize(text)
-    
-    # Remove stopwords
-    stop_words = set(stopwords.words('english'))
-    tokens = [word for word in tokens if word not in stop_words]
-    
-    # Lemmatize
-    lemmatizer = WordNetLemmatizer()
-    tokens = [lemmatizer.lemmatize(word) for word in tokens]
-    
-    # Join back to string
-    processed_text = ' '.join(tokens)
-    
-    return processed_text
-
-def preprocess_audio(audio_file):
-    """Process audio file for model prediction"""
-    # Load audio file
-    try:
-        audio_data, sr = librosa.load(audio_file, sr=22050)
-        
-        # Extract MFCC features
-        mfccs = librosa.feature.mfcc(y=audio_data, sr=sr, n_mfcc=13)
-        
-        # Standardize features
-        mfccs = (mfccs - np.mean(mfccs)) / np.std(mfccs)
-        
-        # Pad or truncate to fixed length (based on your model requirements)
-        target_length = 100  # Adjust based on your model's expected input
-        if mfccs.shape[1] > target_length:
-            mfccs = mfccs[:, :target_length]
-        else:
-            pad_width = target_length - mfccs.shape[1]
-            mfccs = np.pad(mfccs, pad_width=((0, 0), (0, pad_width)), mode='constant')
-        
-        # Reshape for CNN input
-        mfccs = np.expand_dims(mfccs, axis=0)
-        mfccs = np.expand_dims(mfccs, axis=-1)
-        
-        return mfccs
-    except Exception as e:
-        st.error(f"Error processing audio: {str(e)}")
-        # Return a placeholder feature matrix for demo purposes
-        placeholder = np.zeros((1, 13, 100, 1))
-        return placeholder
-
-def predict_text(text, text_classifier, vectorizer):
-    """Make prediction based on text input"""
-    processed_text = preprocess_text(text)
-    text_features = vectorizer.transform([processed_text])
-    prediction = text_classifier.predict_proba(text_features)[0]
-    return prediction
-
-def predict_audio(audio_file, audio_model):
-    """Make prediction based on audio input"""
-    processed_audio = preprocess_audio(audio_file)
-    prediction = audio_model.predict(processed_audio)[0]
-    return prediction
-
-def predict_combined(text, audio_file, text_classifier, vectorizer, audio_model, combined_model):
-    """Make prediction using both text and audio inputs"""
-    text_pred = predict_text(text, text_classifier, vectorizer)
-    audio_pred = predict_audio(audio_file, audio_model)
-    
-    if combined_model and hasattr(combined_model, 'predict_proba'):
-        # If we have a trained combined model, use it
-        combined_input = np.concatenate([text_pred, audio_pred])
-        combined_input = combined_input.reshape(1, -1)
-        prediction = combined_model.predict_proba(combined_input)[0]
-    else:
-        # Simple averaging if no combined model
-        prediction = (text_pred + audio_pred) / 2
-        
-    return prediction, text_pred, audio_pred
-
-def save_uploaded_file(uploaded_file):
-    """Save uploaded file to temp directory and return the file path"""
-    try:
-        # Create temp directory if it doesn't exist
-        if not os.path.exists('temp'):
-            os.makedirs('temp')
-            
-        # Save the file
-        file_path = os.path.join('temp', uploaded_file.name)
-        with open(file_path, 'wb') as f:
-            f.write(uploaded_file.getbuffer())
-        return file_path
-    except Exception as e:
-        st.error(f"Error saving file: {str(e)}")
-        return None
-
-def visualize_predictions(predictions, class_labels, title="Prediction Results"):
-    """Create bar chart of predictions"""
-    fig, ax = plt.subplots(figsize=(10, 6))
-    
-    # Format labels for better display
-    display_labels = [label.replace('_', ' ').title() for label in class_labels]
-    
-    # Sort by probability
-    sorted_indices = np.argsort(predictions)[::-1]
-    sorted_predictions = predictions[sorted_indices]
-    sorted_labels = [display_labels[i] for i in sorted_indices]
-    
-    # Plot
-    ax.barh(sorted_labels, sorted_predictions)
-    ax.set_xlabel('Probability')
-    ax.set_title(title)
-    ax.set_xlim(0, 1)
-    
-    # Return the figure
-    return fig
-
-# Load models
-text_classifier, vectorizer, audio_model, combined_model = load_models()
-
-# Define class labels (from your notebooks)
-class_labels = [
+# Define constants (from your project)
+CLASS_LABELS = [
     "emotional_pain", "infected_wound", "common_cold", 
     "joint_pain", "digestive_issues", "headache", 
     "fatigue", "breathing_difficulty", "skin_rash", "fever"
 ]
 
-# Sidebar Navigation
-st.sidebar.title("Medical Diagnosis")
-st.sidebar.image("https://i.imgur.com/8koJsNY.png", width=100)
+# Demo mode notice
+st.warning("⚠️ **DEMO MODE**: Running without trained models. For full functionality, add model files to the repository.")
 
-# Navigation
-page = st.sidebar.radio(
-    "Select Analysis Type", 
-    ["Home", "Text-based Diagnosis", "Audio-based Diagnosis", "Combined Analysis"]
-)
+# Navigation sidebar
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Select Analysis Type:", 
+    ["Home", "Text Analysis", "Audio Analysis", "Combined Analysis"])
 
-st.sidebar.markdown("---")
-st.sidebar.info(
-    "This application uses AI to analyze medical symptoms through text descriptions "
-    "and audio recordings. **Important**: This is a research tool and not a substitute "
-    "for professional medical advice."
-)
+# Demo prediction functions
+def demo_predict_text(text):
+    """Generate simulated predictions for text"""
+    # Random predictions with higher probability for certain conditions based on keywords
+    probs = np.random.uniform(0.05, 0.15, len(CLASS_LABELS))
+    
+    # Simple keyword matching to make demo somewhat realistic
+    text = text.lower()
+    if "headache" in text or "head" in text:
+        probs[5] = 0.7  # headache
+    elif "cough" in text or "cold" in text or "throat" in text:
+        probs[2] = 0.6  # common cold
+    elif "stomach" in text or "nausea" in text:
+        probs[4] = 0.65  # digestive issues
+    elif "skin" in text or "rash" in text:
+        probs[8] = 0.75  # skin rash
+    elif "fever" in text:
+        probs[9] = 0.68  # fever
+        
+    # Normalize
+    probs = probs / np.sum(probs)
+    return probs
 
-# Home Page
+def demo_predict_audio(audio_file=None):
+    """Generate simulated predictions for audio"""
+    # Random predictions
+    probs = np.random.uniform(0.05, 0.2, len(CLASS_LABELS))
+    
+    # Make breathing_difficulty and common_cold more likely for audio
+    probs[7] = 0.4  # breathing difficulty
+    probs[2] = 0.3  # common cold
+    
+    # Normalize
+    probs = probs / np.sum(probs)
+    return probs
+
+def visualize_predictions(predictions):
+    """Create a bar chart of prediction probabilities"""
+    # Format labels for better display
+    display_labels = [label.replace('_', ' ').title() for label in CLASS_LABELS]
+    
+    # Create dataframe sorted by probability
+    results_df = pd.DataFrame({
+        'Condition': display_labels,
+        'Probability': predictions
+    }).sort_values('Probability', ascending=False)
+    
+    # Return the dataframe for display
+    return results_df
+
+# PAGE: Home
 if page == "Home":
-    st.markdown("<h1 class='main-header'>Multimodal Medical Diagnosis System</h1>", unsafe_allow_html=True)
+    st.header("Welcome to the Medical Diagnosis System")
     
     st.markdown("""
-    ## About This System
+    ### About This System
     
-    This AI-powered system combines natural language processing and audio analysis 
-    to help identify potential medical conditions based on symptom descriptions and sound recordings.
+    This AI-powered system helps identify potential medical conditions based on:
     
-    ### Features:
+    - **Text descriptions** of symptoms
+    - **Audio recordings** of relevant sounds (breathing, coughing, etc.)
+    - **Combined analysis** of both inputs
     
-    - **Text Analysis**: Processes written descriptions of symptoms
-    - **Audio Analysis**: Analyzes sound recordings (e.g., coughs, breathing)
-    - **Combined Analysis**: Integrates both inputs for improved accuracy
+    ### How to Use
     
-    ### How to Use:
+    1. Select your preferred analysis type from the sidebar
+    2. Enter your symptom information or upload audio recordings
+    3. View the prediction results
     
-    1. Select the type of analysis from the sidebar
-    2. Provide the requested inputs (text description, audio file, or both)
-    3. View the analysis results and potential conditions
+    ### Important Note
     
-    ### Research Background:
+    This application is for research and demonstration purposes only. 
+    Always consult a healthcare professional for medical advice.
+    """)
+
+# PAGE: Text Analysis
+elif page == "Text Analysis":
+    st.header("Text-based Symptom Analysis")
     
-    This system represents a novel approach to medical symptom analysis by combining 
-    multiple data modalities. Our research shows that this multimodal approach can 
-    improve diagnostic accuracy compared to single-modality methods.
+    st.markdown("""
+    Describe your symptoms in detail below. Include when they started, 
+    their severity, and any other relevant information.
     """)
     
-    st.markdown("<div class='info-box'>", unsafe_allow_html=True)
-    st.warning("⚠️ **Important Disclaimer**: This application is for research and educational purposes only. " 
-               "It is not intended to provide medical advice or replace consultation with qualified healthcare professionals.")
-    st.markdown("</div>", unsafe_allow_html=True)
+    # User input
+    user_text = st.text_area(
+        "Symptom Description",
+        placeholder="Example: I've been experiencing a persistent dry cough for the past 3 days, along with a mild fever and sore throat...",
+        height=150
+    )
     
-    st.markdown("### System Architecture")
-    
-    # Create a simple system architecture diagram
-    st.markdown("""
-                ┌─────────────────┐ ┌──────────────────┐
-│ │ │ │
-│ Text Analysis │ │ Audio Analysis │
-│ │ │ │
-└────────┬────────┘ └────────┬─────────┘
-│ │
-▼ ▼
-┌─────────────────────────────────────────┐
-│ │
-│ Combined Analysis │
-│ │
-└───────────────────┬─────────────────────┘
-│
-▼
-┌─────────────────────────────────────────┐
-│ │
-│ Diagnosis Output │
-│ │
-└─────────────────────────────────────────┘
-""")
-
-# Text-based Diagnosis
-elif page == "Text-based Diagnosis":
-st.markdown("<h1 class='main-header'>Text-based Symptom Analysis</h1>", unsafe_allow_html=True)
-
-st.markdown("""
-Describe your symptoms in detail below. Include information about:
-- When the symptoms started
-- Their intensity and duration
-- Any factors that make them better or worse
-- Any related symptoms
-""")
-
-# User input
-user_text = st.text_area(
-    "Symptom Description", 
-    height=150,
-    placeholder="Example: I've been experiencing a persistent dry cough for the past 3 days, along with a mild fever and sore throat..."
-)
-
-# Analysis button
-if st.button("Analyze Symptoms"):
-    if not user_text:
-        st.warning("Please enter a symptom description to analyze.")
-    elif not text_classifier or not vectorizer:
-        st.error("Error: Required models could not be loaded. Please try again later.")
-    else:
-        with st.spinner("Analyzing your symptoms..."):
-            # Make prediction
-            predictions = predict_text(user_text, text_classifier, vectorizer)
-            
-            # Display results
-            st.markdown("<div class='result-box'>", unsafe_allow_html=True)
-            st.subheader("Analysis Results")
-            
-            # Create dataframe for results
-            results_df = pd.DataFrame({
-                'Condition': [label.replace('_', ' ').title() for label in class_labels],
-                'Probability': predictions
-            }).sort_values('Probability', ascending=False)
-            
-            # Show top conditions
-            st.markdown("#### Top 3 Potential Conditions:")
-            for i in range(3):
-                if i < len(results_df):
+    # Analysis button
+    if st.button("Analyze Symptoms"):
+        if not user_text:
+            st.warning("Please enter a symptom description to analyze.")
+        else:
+            with st.spinner("Analyzing your symptoms..."):
+                # Get demo predictions
+                predictions = demo_predict_text(user_text)
+                
+                # Display results
+                st.subheader("Analysis Results")
+                
+                # Create and display results dataframe
+                results_df = visualize_predictions(predictions)
+                
+                # Show top 3 conditions
+                st.markdown("#### Top 3 Potential Conditions:")
+                for i in range(3):
                     condition = results_df.iloc[i]['Condition']
                     prob = results_df.iloc[i]['Probability'] * 100
                     st.markdown(f"**{i+1}. {condition}**: {prob:.1f}%")
-            
-            # Visualization
-            fig = visualize_predictions(predictions, class_labels, "Text Analysis Results")
-            st.pyplot(fig)
-            
-            st.markdown("</div>", unsafe_allow_html=True)
-            
-            st.markdown("<div class='info-box'>", unsafe_allow_html=True)
-            st.info("**Note**: This analysis is based solely on the text description. "
-                    "For a more comprehensive assessment, try the combined analysis with both text and audio inputs.")
-            st.markdown("</div>", unsafe_allow_html=True)
+                
+                # Bar chart
+                st.bar_chart(results_df.set_index('Condition'))
+                
+                st.info("Note: This analysis is running in demo mode with simulated predictions.")
 
-# Audio-based Diagnosis
-elif page == "Audio-based Diagnosis":
-st.markdown("<h1 class='main-header'>Audio-based Symptom Analysis</h1>", unsafe_allow_html=True)
-
-st.markdown("""
-Upload an audio recording of relevant sounds (e.g., coughing, breathing, etc.). 
-For best results:
-- Record in a quiet environment
-- Position the microphone appropriately
-- Provide a clear recording of the relevant sound
-- Use WAV or MP3 format
-""")
-
-# File uploader
-audio_file = st.file_uploader("Upload Audio Recording", type=["wav", "mp3", "ogg"])
-
-if audio_file:
-    # Display audio player
-    st.audio(audio_file)
+# PAGE: Audio Analysis
+elif page == "Audio Analysis":
+    st.header("Audio-based Symptom Analysis")
     
-    # Analysis button
-    if st.button("Analyze Audio"):
-        if not audio_model:
-            st.error("Error: Required models could not be loaded. Please try again later.")
-        else:
-            with st.spinner("Processing audio and analyzing..."):
-                # Save uploaded file temporarily
-                temp_path = save_uploaded_file(audio_file)
-                
-                if temp_path:
-                    # Make prediction
-                    predictions = predict_audio(temp_path, audio_model)
-                    
-                    # Display results
-                    st.markdown("<div class='result-box'>", unsafe_allow_html=True)
-                    st.subheader("Analysis Results")
-                    
-                    # Create dataframe for results
-                    results_df = pd.DataFrame({
-                        'Condition': [label.replace('_', ' ').title() for label in class_labels],
-                        'Probability': predictions
-                    }).sort_values('Probability', ascending=False)
-                    
-                    # Show top conditions
-                    st.markdown("#### Top 3 Potential Conditions:")
-                    for i in range(3):
-                        if i < len(results_df):
-                            condition = results_df.iloc[i]['Condition']
-                            prob = results_df.iloc[i]['Probability'] * 100
-                            st.markdown(f"**{i+1}. {condition}**: {prob:.1f}%")
-                    
-                    # Visualization
-                    fig = visualize_predictions(predictions, class_labels, "Audio Analysis Results")
-                    st.pyplot(fig)
-                    
-                    st.markdown("</div>", unsafe_allow_html=True)
-                    
-                    # Audio feature visualization
-                    with st.expander("View Audio Features"):
-                        try:
-                            # Load audio and extract features for visualization
-                            y, sr = librosa.load(temp_path, sr=22050)
-                            
-                            # Waveform
-                            fig, ax = plt.subplots(figsize=(10, 4))
-                            librosa.display.waveshow(y, sr=sr, ax=ax)
-                            ax.set_title('Audio Waveform')
-                            st.pyplot(fig)
-                            
-                            # MFCCs
-                            mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
-                            fig, ax = plt.subplots(figsize=(10, 4))
-                            img = librosa.display.specshow(mfccs, x_axis='time', ax=ax)
-                            ax.set_title('MFCC Features')
-                            fig.colorbar(img, ax=ax, format='%+2.f')
-                            st.pyplot(fig)
-                        except Exception as e:
-                            st.warning(f"Could not generate audio visualizations: {str(e)}")
-                    
-                    st.markdown("<div class='info-box'>", unsafe_allow_html=True)
-                    st.info("**Note**: This analysis is based solely on the audio recording. "
-                            "For a more comprehensive assessment, try the combined analysis with both text and audio inputs.")
-                    st.markdown("</div>", unsafe_allow_html=True)
-                    
-                    # Clean up temp file
-                    try:
-                        os.remove(temp_path)
-                    except:
-                        pass
-                else:
-                    st.error("Error processing the audio file. Please try again.")
-
-# Combined Analysis
-elif page == "Combined Analysis":
-st.markdown("<h1 class='main-header'>Combined Text and Audio Analysis</h1>", unsafe_allow_html=True)
-
-st.markdown("""
-This analysis uses both symptom descriptions and audio recordings to provide more comprehensive results.
-Please provide both inputs below for the best diagnostic assessment.
-""")
-
-# Create two columns for inputs
-col1, col2 = st.columns(2)
-
-with col1:
-    st.markdown("### Symptom Description")
-    user_text = st.text_area(
-        "Describe your symptoms in detail",
-        height=150,
-        placeholder="Example: I've been experiencing a persistent dry cough for the past 3 days, along with a mild fever and sore throat..."
-    )
-
-with col2:
-    st.markdown("### Audio Recording")
-    audio_file = st.file_uploader("Upload relevant audio recording", type=["wav", "mp3", "ogg"])
+    st.markdown("""
+    Upload an audio recording of relevant sounds (e.g., coughing, breathing sounds).
+    """)
+    
+    # File uploader
+    audio_file = st.file_uploader("Upload Audio Recording", type=["wav", "mp3", "ogg"])
+    
     if audio_file:
+        # Display audio player
         st.audio(audio_file)
-
-# Analysis button
-if st.button("Perform Combined Analysis"):
-    if not user_text:
-        st.warning("Please enter a symptom description.")
-    elif not audio_file:
-        st.warning("Please upload an audio recording.")
-    elif not text_classifier or not vectorizer or not audio_model:
-        st.error("Error: Required models could not be loaded. Please try again later.")
-    else:
-        with st.spinner("Performing comprehensive analysis..."):
-            # Save uploaded file temporarily
-            temp_path = save_uploaded_file(audio_file)
-            
-            if temp_path:
-                # Make combined prediction
-                combined_predictions, text_predictions, audio_predictions = predict_combined(
-                    user_text, temp_path, text_classifier, vectorizer, audio_model, combined_model
-                )
+        
+        # Analysis button
+        if st.button("Analyze Audio"):
+            with st.spinner("Processing audio..."):
+                # Get demo predictions
+                predictions = demo_predict_audio(audio_file)
                 
-                # Display main results
-                st.markdown("<div class='result-box'>", unsafe_allow_html=True)
-                st.subheader("Combined Analysis Results")
+                # Display results
+                st.subheader("Analysis Results")
                 
-                # Create dataframe for results
-                results_df = pd.DataFrame({
-                    'Condition': [label.replace('_', ' ').title() for label in class_labels],
-                    'Probability': combined_predictions
-                }).sort_values('Probability', ascending=False)
+                # Create and display results dataframe
+                results_df = visualize_predictions(predictions)
                 
-                # Show top conditions
+                # Show top 3 conditions
                 st.markdown("#### Top 3 Potential Conditions:")
                 for i in range(3):
-                    if i < len(results_df):
-                        condition = results_df.iloc[i]['Condition']
-                        prob = results_df.iloc[i]['Probability'] * 100
-                        st.markdown(f"**{i+1}. {condition}**: {prob:.1f}%")
+                    condition = results_df.iloc[i]['Condition']
+                    prob = results_df.iloc[i]['Probability'] * 100
+                    st.markdown(f"**{i+1}. {condition}**: {prob:.1f}%")
                 
-                # Visualization
-                fig = visualize_predictions(combined_predictions, class_labels, "Combined Analysis Results")
-                st.pyplot(fig)
+                # Bar chart
+                st.bar_chart(results_df.set_index('Condition'))
                 
-                st.markdown("</div>", unsafe_allow_html=True)
+                st.info("Note: This analysis is running in demo mode with simulated predictions.")
+
+# PAGE: Combined Analysis
+elif page == "Combined Analysis":
+    st.header("Combined Text and Audio Analysis")
+    
+    st.markdown("""
+    This mode combines both text descriptions and audio recordings for more accurate analysis.
+    Please provide both inputs below.
+    """)
+    
+    # Create two columns
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("### Symptom Description")
+        user_text = st.text_area(
+            "Describe your symptoms",
+            height=150,
+            placeholder="Example: I've been experiencing a persistent dry cough..."
+        )
+    
+    with col2:
+        st.markdown("### Audio Recording")
+        audio_file = st.file_uploader("Upload relevant audio", type=["wav", "mp3", "ogg"])
+        if audio_file:
+            st.audio(audio_file)
+    
+    # Analysis button
+    if st.button("Perform Combined Analysis"):
+        if not user_text:
+            st.warning("Please enter a symptom description.")
+        elif not audio_file:
+            st.warning("Please upload an audio recording.")
+        else:
+            with st.spinner("Performing comprehensive analysis..."):
+                # Get demo predictions
+                text_predictions = demo_predict_text(user_text)
+                audio_predictions = demo_predict_audio(audio_file)
                 
-                # Individual results comparison
+                # Simple averaging for combined predictions
+                combined_predictions = (text_predictions + audio_predictions) / 2
+                
+                # Display main results
+                st.subheader("Combined Analysis Results")
+                
+                # Create and display results dataframe
+                results_df = visualize_predictions(combined_predictions)
+                
+                # Show top 3 conditions
+                st.markdown("#### Top 3 Potential Conditions:")
+                for i in range(3):
+                    condition = results_df.iloc[i]['Condition']
+                    prob = results_df.iloc[i]['Probability'] * 100
+                    st.markdown(f"**{i+1}. {condition}**: {prob:.1f}%")
+                
+                # Bar chart
+                st.bar_chart(results_df.set_index('Condition'))
+                
+                # Comparison of individual analyses
                 st.markdown("### Comparison of Individual Analyses")
                 
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                    st.markdown("#### Text-Based Results")
-                    # Create dataframe for text results
-                    text_df = pd.DataFrame({
-                        'Condition': [label.replace('_', ' ').title() for label in class_labels],
-                        'Probability': text_predictions
-                    }).sort_values('Probability', ascending=False).head(3)
-                    
+                    st.markdown("#### Text Analysis Results")
+                    text_df = visualize_predictions(text_predictions).head(3)
                     st.dataframe(text_df)
                 
                 with col2:
-                    st.markdown("#### Audio-Based Results")
-                    # Create dataframe for audio results
-                    audio_df = pd.DataFrame({
-                        'Condition': [label.replace('_', ' ').title() for label in class_labels],
-                        'Probability': audio_predictions
-                    }).sort_values('Probability', ascending=False).head(3)
-                    
+                    st.markdown("#### Audio Analysis Results")
+                    audio_df = visualize_predictions(audio_predictions).head(3)
                     st.dataframe(audio_df)
                 
-                # Detailed comparison visualization
-                st.markdown("### Modality Comparison Visualization")
-                
-                # Prepare data for comparison chart
-                top_conditions = results_df.head(5)['Condition'].tolist()
-                top_indices = [class_labels.index(condition.lower().replace(' ', '_')) for condition in top_conditions]
-                
-                comparison_data = {
-                    'Condition': top_conditions,
-                    'Text Analysis': [text_predictions[class_labels.index(condition.lower().replace(' ', '_'))] * 100 for condition in top_conditions],
-                    'Audio Analysis': [audio_predictions[class_labels.index(condition.lower().replace(' ', '_'))] * 100 for condition in top_conditions],
-                    'Combined Analysis': [combined_predictions[class_labels.index(condition.lower().replace(' ', '_'))] * 100 for condition in top_conditions]
-                }
-                
-                comparison_df = pd.DataFrame(comparison_data)
-                st.bar_chart(comparison_df.set_index('Condition'))
-                
-                st.markdown("<div class='info-box'>", unsafe_allow_html=True)
-                st.info("**Insight**: The combined analysis leverages both text descriptions and audio data "
-                        "to provide a more comprehensive assessment. Areas where both modalities agree "
-                        "generally indicate higher confidence in the diagnosis.")
-                st.markdown("</div>", unsafe_allow_html=True)
-                
-                # Clean up temp file
-                try:
-                    os.remove(temp_path)
-                except:
-                    pass
-            else:
-                st.error("Error processing the audio file. Please try again.")
+                st.info("Note: This analysis is running in demo mode with simulated predictions.")
 
 # Footer
 st.markdown("---")
-st.markdown(
-"© 2025 Multimodal Medical Diagnosis System | For Research Purposes Only | "
-"[GitHub Repository](https://github.com/HAMEEMM/multimodal_medical_diagnosis)"
-)
+st.markdown("© 2025 Medical Diagnosis System | Research Purposes Only")
