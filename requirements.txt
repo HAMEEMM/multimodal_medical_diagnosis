@@ -14,7 +14,7 @@ pillow==11.2.1                # Python Imaging Library (PIL) for image processin
 wordcloud>=1.9.2              # Generating word clouds a visual representations of text data
 
 # Machine learning libraries  
-scikit-learn==1.2.2           # Machine learning algorithms and tools  
+scikit-learn==1.5.1           # Machine learning algorithms and tools  
 xgboost==1.7.5                # Gradient boosting framework  
 tensorflow==2.12.0            # Deep learning framework  
 keras==2.12.0                 # High-level neural networks API (included with TensorFlow)
