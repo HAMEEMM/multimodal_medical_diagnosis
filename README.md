@@ -368,7 +368,7 @@ _Note: These are representative results; full details are available in the disse
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📧 Contact
 

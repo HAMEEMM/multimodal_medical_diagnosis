@@ -1,5 +1,5 @@
 # Core scientific and data processing libraries  
-numpy>=1.22.0,<1.24.0         # Constrained to work with TensorFlow 2.12.0  
+numpy>=1.20.0                 # Constrained to work with TensorFlow 2.12.0  
 pandas==2.0.2                 # Data manipulation and analysis library  
 scipy==1.10.1                 # Scientific computing library  
 textblob>=0.17.1              # For sentiment analysis of text data
@@ -38,4 +38,4 @@ ipywidgets==8.0.6             # Interactive widgets for Jupyter notebooks
 
 # Deployment and cloud services
 
-streamlit==1.25.0
+streamlit==1.22.0
