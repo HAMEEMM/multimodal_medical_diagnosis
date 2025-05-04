@@ -33,7 +33,7 @@ python-speech-features==0.6   # Feature extraction for speech processing
 
 # Development and notebook tools  
 jupyter==1.0.0                # Interactive computing environment  
-tqdm==4.65.0                  # Progress bar for loops and data processing  
+tqdm==4.66.3                  # Progress bar for loops and data processing  
 ipywidgets==8.0.6             # Interactive widgets for Jupyter notebooks  
 
 # Deployment and cloud services
