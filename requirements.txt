@@ -22,7 +22,7 @@ imbalanced-learn==0.12.4      # Tools for handling imbalanced datasets
 # Deep learning (Natural Language Processing)
 nltk==3.8.1                   # Natural Language Toolkit 
 spacy>=3.5.0                  # Industrial-strength NLP library
-transformers==4.29.2          # State-of-the-art NLP models (BERT, GPT, etc.)  
+transformers==4.50.0          # State-of-the-art NLP models (BERT, GPT, etc.)  
 
 # Audio processing  
 librosa==0.10.0               # Audio and music analysis library  
