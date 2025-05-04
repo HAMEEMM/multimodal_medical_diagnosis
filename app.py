@@ -263,7 +263,7 @@ if page == "Home":
     st.markdown("</div>", unsafe_allow_html=True)
     
     st.markdown("### System Architecture")
-    st.image("https://i.imgur.com/JLSIfjL.png", caption="Multimodal Medical Diagnosis System Architecture")
+    st.image("/docs/images/system_architecture.png", caption="Multimodal Medical Diagnosis System Architecture")
 
 # Text-based Diagnosis
 elif page == "Text-based Diagnosis":
