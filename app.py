@@ -4,8 +4,10 @@ import pandas as pd
 import os
 import joblib
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.models import load_model
+try:
+    from tensorflow.keras.models import load_model
+except:
+    from keras.models import load_model
 import librosa
 import re
 import pickle
@@ -71,8 +73,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Helper Functions
-@st.cache_resource
+# Helper Functions for Demo Mode
 def create_demo_models():
     """Create demo models for testing when real models aren't available"""
     import numpy as np
@@ -121,6 +122,7 @@ def create_demo_models():
     
     return text_classifier, vectorizer, audio_model, combined_model
 
+# Helper Functions for Model Loading
 @st.cache_resource
 def load_models():
     """Load all required models with caching for better performance"""
@@ -526,8 +528,8 @@ if audio_file:
                             ax.set_title('MFCC Features')
                             fig.colorbar(img, ax=ax, format='%+2.f')
                             st.pyplot(fig)
-                        except:
-                            st.warning("Could not generate audio visualizations.")
+                        except Exception as e:
+                            st.warning(f"Could not generate audio visualizations: {str(e)}")
                     
                     st.markdown("<div class='info-box'>", unsafe_allow_html=True)
                     st.info("**Note**: This analysis is based solely on the audio recording. "
@@ -671,5 +673,5 @@ if st.button("Perform Combined Analysis"):
 st.markdown("---")
 st.markdown(
 "© 2025 Multimodal Medical Diagnosis System | For Research Purposes Only | "
-"[GitHub Repository](https://github.com/yourusername/multimodal_medical_diagnosis)"
+"[GitHub Repository](https://github.com/HAMEEMM/multimodal_medical_diagnosis)"
 )
