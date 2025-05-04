@@ -255,4 +255,4 @@ elif page == "Combined Analysis":
 
 # Footer
 st.markdown("---")
-st.markdown("© 2025 Medical Diagnosis System | Research Purposes Only")
+st.markdown("© 2025 Medical Diagnosis System | Research Purposes Only by Hameem Mahdi")
