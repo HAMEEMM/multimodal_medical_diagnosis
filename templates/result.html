@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Classification Results</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        color: #2c3e50;
+      }
+      .results {
+        background: #f7f7f7;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #3498db;
+        color: white;
+      }
+      .back-button {
+        background: #3498db;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+      }
+      .back-button:hover {
+        background: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Classification Results</h1>
+
+    <div class="results">
+      <h2>Input Text:</h2>
+      <p>{{ text }}</p>
+
+      <h2>Classification Results:</h2>
+      <table>
+        <tr>
+          <th>Model</th>
+          <th>Predicted Prompt</th>
+          <th>Confidence</th>
+        </tr>
+        {% if 'text' in results %}
+        <tr>
+          <td>Text Model</td>
+          <td>{{ results['text'] }}</td>
+          <td>{{ confidence_scores['text'] }}</td>
+        </tr>
+        {% endif %} {% if 'audio' in results %}
+        <tr>
+          <td>Audio Model</td>
+          <td>{{ results['audio'] }}</td>
+          <td>{{ confidence_scores['audio'] }}</td>
+        </tr>
+        {% endif %} {% if 'combined' in results %}
+        <tr>
+          <td>Combined Model</td>
+          <td>{{ results['combined'] }}</td>
+          <td>{{ confidence_scores['combined'] }}</td>
+        </tr>
+        {% endif %}
+      </table>
+    </div>
+
+    <a href="/" class="back-button">Classify Another</a>
+  </body>
+</html>

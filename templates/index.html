@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Medical Prompt Classifier</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        color: #2c3e50;
+      }
+      form {
+        background: #f7f7f7;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+      }
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+      }
+      input[type="submit"] {
+        background: #3498db;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Medical Prompt Classifier</h1>
+    <p>
+      Enter text and/or upload an audio file to classify the medical prompt.
+    </p>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+      <label for="text">Text Transcription:</label>
+      <input
+        type="text"
+        id="text"
+        name="text"
+        placeholder="Enter medical text..."
+      />
+
+      <label for="audio">Audio File (WAV):</label>
+      <input type="file" id="audio" name="audio" accept=".wav" />
+
+      <input type="submit" value="Classify" />
+    </form>
+  </body>
+</html>
