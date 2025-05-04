@@ -17,7 +17,7 @@ wordcloud>=1.9.2              # Generating word clouds a visual representations 
 scikit-learn==1.2.2           # Machine learning algorithms and tools  
 xgboost==1.7.5                # Gradient boosting framework  
 tensorflow==2.12.0            # Deep learning framework  
-keras==2.12.0                 # High-level neural networks API (included with TensorFlow)
+keras==3.9.0                 # High-level neural networks API (included with TensorFlow)
 imbalanced-learn==0.12.4      # Tools for handling imbalanced datasets
 nltk==3.8.1                   # Natural Language Toolkit for text processing
 
