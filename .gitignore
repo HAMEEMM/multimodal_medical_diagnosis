@@ -115,9 +115,11 @@ venv.bak/
 !.vscode/extensions.json  
 
 # Data files  
-# Ignore all files in recordings directories except .gitkeep
-data/Medical*/recordings/**/*
-!data/Medical*/recordings/**/.gitkeep
+# Ignore wav, mp3, and flac files
+data/Medical*/recordings/**/*.wav
+data/Medical*/recordings/**/*.mp3
+data/Medical*/recordings/**/*.flac
+data/Medical*/recordings/**/*.WAV
 
 # Track important data files
 !data/Medical\ Speech,\ Transcription,\ and\ Intent/overview-of-recordings.csv
