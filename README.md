@@ -428,7 +428,7 @@ Doctoral Dissertation, National University.
 
 This repository uses `.gitignore` and `.gitkeep` files to manage large datasets and maintain directory structure:
 
-- **Audio files** (*.wav, *.mp3) are excluded from version control due to their size
+- **Audio files** (_.wav, _.mp3) are excluded from version control due to their size
 - **Large document files** in the `docs/` directory are excluded but can be selectively included
 - **Directory structure** is maintained using `.gitkeep` files
 - The `SETUP_GUIDE.md` provides detailed instructions for setting up the development environment
@@ -440,6 +440,7 @@ The Medical Speech dataset is not tracked in Git. Please see `data/Medical Speec
 ### Development Environment
 
 For setting up the development environment:
+
 1. Clone this repository
 2. Follow instructions in `SETUP_GUIDE.md`
 3. Run `test_environment.py` to verify your setup
