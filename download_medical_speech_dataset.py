@@ -1,140 +1,168 @@
+import os  
+import requests  
+import zipfile  
+import kaggle  
+from kaggle.api.kaggle_api_extended import KaggleApi  
 
-import os
-import zipfile
-import kaggle
-from kaggle.api.kaggle_api_extended import KaggleApi
-import logging
-import time
-from tqdm import tqdm
-from colorama import init, Fore, Style
-import sys
+def setup_kaggle_credentials():  
+    """  
+    Setup Kaggle API credentials  
+    Ensure you have kaggle.json in ~/.kaggle/ directory  
+    """  
+    # Path to Kaggle API credentials  
+    kaggle_config_dir = os.path.expanduser('~/.kaggle/')  
+    os.makedirs(kaggle_config_dir, exist_ok=True)  
+    
+    # Recommend manual credential setup  
+    if not os.path.exists(os.path.join(kaggle_config_dir, 'kaggle.json')):  
+        print("❌ Kaggle API credentials not found!")  
+        print("Please follow these steps:")  
+        print("1. Go to Kaggle > Account > Create New API Token")  
+        print("2. Download kaggle.json")  
+        print("3. Place kaggle.json in ~/.kaggle/ directory")  
+        print("4. Set file permissions: chmod 600 ~/.kaggle/kaggle.json")  
+        raise FileNotFoundError("Kaggle API credentials missing")  
 
-# Initialize colorama for cross-platform colored output
-init(autoreset=True)
-
-def create_spinning_cursor():
-    """Create a spinning cursor animation."""
-    while True:
-        for cursor in '|/-\\':
-            yield cursor
-
-def download_with_progress(api, dataset, download_path):
-    """
-    Download Kaggle dataset with a progress bar and spinner.
+def download_dataset(dataset_name, download_path):  
+    """  
+    Download dataset using Kaggle API  
     
-    Args:
-        api (KaggleApi): Authenticated Kaggle API instance
-        dataset (str): Dataset identifier
-        download_path (str): Path to download the dataset
-    
-    Returns:
-        str: Path to the downloaded zip file
-    """
-    # Prepare filename and full path
-    zip_filename = f"{dataset.split('/')[-1]}.zip"
-    full_zip_path = os.path.join(download_path, zip_filename)
-    
-    # Create a progress bar
-    print(Fore.CYAN + "🔍 Preparing to download dataset..." + Style.RESET_ALL)
-    
-    # Use a spinner to show activity
-    spinner = create_spinning_cursor()
-    
-    # Custom progress callback
-    def progress_callback(chunk_size, total_size, total_written):
-        if total_size > 0:
-            percent = total_written * 100 / total_size
-            sys.stdout.write(f"\r{Fore.YELLOW}Downloading: {next(spinner)} {percent:.1f}% complete{Style.RESET_ALL}")
-            sys.stdout.flush()
-    
-    try:
-        # Download the dataset with progress tracking
-        print(Fore.GREEN + "📦 Initiating dataset download..." + Style.RESET_ALL)
-        api.dataset_download_files(
-            dataset, 
-            path=download_path, 
-            quiet=False, 
-            progress=progress_callback
-        )
+    Args:  
+        dataset_name (str): Kaggle dataset identifier  
+        download_path (str): Local directory to save dataset  
+    """  
+    try:  
+        # Initialize Kaggle API  
+        api = KaggleApi()  
+        api.authenticate()  
         
-        print("\n" + Fore.GREEN + "✅ Download complete!" + Style.RESET_ALL)
-        return full_zip_path
+        # Create download directory if not exists  
+        os.makedirs(download_path, exist_ok=True)  
+        
+        # Download dataset  
+        print(f"📦 Downloading dataset: {dataset_name}")  
+        api.dataset_download_files(  
+            dataset_name,   
+            path=download_path,   
+            unzip=True  # Use Kaggle's built-in unzip  
+        )  
+        
+        print("✅ Dataset downloaded successfully!")  
     
-    except Exception as e:
-        print(Fore.RED + f"❌ Download failed: {e}" + Style.RESET_ALL)
-        return None
+    except Exception as e:  
+        print(f"❌ Download failed: {e}")  
+        raise  
 
-def unzip_with_progress(zip_path, extract_path):
-    """
-    Unzip file with a progress bar.
+def clean_and_organize_dataset(download_path):  
+    """  
+    Clean and organize downloaded dataset  
     
-    Args:
-        zip_path (str): Path to the zip file
-        extract_path (str): Path to extract the contents
-    """
-    print(Fore.CYAN + "🗂️ Extracting dataset..." + Style.RESET_ALL)
+    Args:  
+        download_path (str): Path to downloaded dataset  
+    """  
+    # List all files in download directory  
+    files = os.listdir(download_path)  
     
-    # Open the zip file
-    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-        # Get list of files to extract
-        file_list = zip_ref.namelist()
+    # Remove any unnecessary zip files  
+    for file in files:  
+        if file.endswith('.zip'):  
+            os.remove(os.path.join(download_path, file))  
+    
+    # List subdirectories  
+    subdirs = [d for d in os.listdir(download_path)   
+               if os.path.isdir(os.path.join(download_path, d))]  
+    
+    # Check for nested directories (double unzip issue)  
+    if len(subdirs) > 1:  
+        print("⚠️ Multiple subdirectories detected. Consolidating...")  
         
-        # Create a progress bar for extraction
-        with tqdm(
-            total=len(file_list), 
-            desc=Fore.GREEN + "Extracting" + Style.RESET_ALL, 
-            bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt}"
-        ) as pbar:
-            for file in file_list:
-                zip_ref.extract(file, extract_path)
-                pbar.update(1)
-    
-    print(Fore.GREEN + "✅ Extraction complete!" + Style.RESET_ALL)
-
-def download_and_unzip_medical_speech_dataset(download_path):
-    """
-    Main function to download and unzip the medical speech dataset.
-    
-    Args:
-        download_path (str): Full path where dataset will be downloaded and extracted
-    """
-    # Ensure the download path exists
-    os.makedirs(download_path, exist_ok=True)
-    
-    try:
-        # Initialize the Kaggle API
-        print(Fore.CYAN + "🔐 Authenticating Kaggle API..." + Style.RESET_ALL)
-        api = KaggleApi()
-        api.authenticate()
-        
-        # Dataset details
-        dataset = "paultimothymooney/medical-speech-transcription-and-intent"
-        
-        # Download with progress
-        zip_file = download_with_progress(api, dataset, download_path)
-        
-        if zip_file:
-            # Unzip with progress
-            unzip_with_progress(zip_file, download_path)
+        # Merge contents of all subdirectories  
+        for subdir in subdirs:  
+            subdir_path = os.path.join(download_path, subdir)  
             
-            # Optional: Remove the zip file after extraction
-            os.remove(zip_file)
-            print(Fore.GREEN + "🎉 Dataset successfully downloaded and extracted!" + Style.RESET_ALL)
+            # Move files from nested directory to main download path  
+            for item in os.listdir(subdir_path):  
+                src = os.path.join(subdir_path, item)  
+                dst = os.path.join(download_path, item)  
+                
+                # Move files, overwriting if necessary  
+                if os.path.isfile(src):  
+                    os.rename(src, dst)  
+            
+            # Remove empty subdirectory  
+            os.rmdir(subdir_path)  
+    
+    print("✅ Dataset organized successfully!")  
+
+def validate_dataset(download_path):  
+    """  
+    Validate downloaded dataset structure  
+    
+    Args:  
+        download_path (str): Path to downloaded dataset  
+    """  
+    # Check for critical files  
+    required_files = [  
+        'overview-of-recordings.csv',  
+        'recordings'  
+    ]  
+    
+    missing_files = [  
+        file for file in required_files   
+        if not os.path.exists(os.path.join(download_path, file))  
+    ]  
+    
+    if missing_files:  
+        print("❌ Missing critical dataset components:")  
+        for file in missing_files:  
+            print(f"   - {file}")  
+        raise FileNotFoundError("Incomplete dataset download")  
+    
+    # Display dataset structure  
+    print("\n📂 Dataset Structure:")  
+    for root, dirs, files in os.walk(download_path):  
+        level = root.replace(download_path, '').count(os.sep)  
+        indent = ' ' * 4 * level  
+        print(f"{indent}📁 {os.path.basename(root)}/")  
+        sub_indent = ' ' * 4 * (level + 1)  
+        for file in files:  
+            print(f"{sub_indent}📄 {file}")  
+
+def main(dataset_name="paultimothymooney/medical-speech-transcription-and-intent"):  
+    """  
+    Main execution function for dataset download  
+    
+    Args:  
+        dataset_name (str): Kaggle dataset identifier  
+    """  
+    # Define download path  
+    download_path = os.path.join(  
+        'G:',   
+        'Msc',   
+        'NCU',   
+        'Doctoral Record',   
+        'multimodal_medical_diagnosis',   
+        'data',   
+        'Medical Speech, Transcription, and Intent'  
+    )  
+    
+    try:  
+        # Setup Kaggle credentials  
+        setup_kaggle_credentials()  
         
-    except Exception as e:
-        print(Fore.RED + f"❌ An error occurred: {e}" + Style.RESET_ALL)
-
-# Specify the exact path from your screenshot
-download_path = r"G:\Msc\NCU\Doctoral Record\multimodal_medical_diagnosis\data"
-
-# Run the download and unzip function
-if __name__ == "__main__":
-    # Add a welcome message
-    print(Fore.CYAN + "🚀 Medical Speech Dataset Downloader" + Style.RESET_ALL)
-    print(Fore.YELLOW + "Please be patient. Download may take some time." + Style.RESET_ALL)
+        # Download dataset  
+        download_dataset(dataset_name, download_path)  
+        
+        # Clean and organize dataset  
+        clean_and_organize_dataset(download_path)  
+        
+        # Validate dataset  
+        validate_dataset(download_path)  
+        
+        print("\n🎉 Dataset successfully downloaded and prepared!")  
     
-    # Pause briefly to let the user read the message
-    time.sleep(2)
-    
-    # Start the download
-    download_and_unzip_medical_speech_dataset(download_path)
+    except Exception as e:  
+        print(f"❌ Dataset preparation failed: {e}")  
+
+if __name__ == "__main__":  
+    main()  

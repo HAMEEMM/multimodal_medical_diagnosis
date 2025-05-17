@@ -141,13 +141,13 @@ chmod +x setup_project.sh
 
 ```bash
 # Create virtual environment
-python -m venv .venv
+python -m venv .medical_diagnosis
 
 # Activate virtual environment
 # On Windows:
-.venv\Scripts\activate
+.medical_diagnosis\Scripts\activate
 # On Linux/Mac:
-source .venv/bin/activate
+source .medical_diagnosis/Scripts/activate
 ```
 
 2. Install dependencies:
@@ -421,3 +421,25 @@ For questions or collaboration opportunities, please contact:
 Hameem, M. H. (2025). Medical Diagnosis through NLP and Machine Learning:
 An Advanced Multimodal Classification Framework.
 Doctoral Dissertation, National University.
+
+## 🔄 Repository Setup
+
+### Git Configuration
+
+This repository uses `.gitignore` and `.gitkeep` files to manage large datasets and maintain directory structure:
+
+- **Audio files** (*.wav, *.mp3) are excluded from version control due to their size
+- **Large document files** in the `docs/` directory are excluded but can be selectively included
+- **Directory structure** is maintained using `.gitkeep` files
+- The `SETUP_GUIDE.md` provides detailed instructions for setting up the development environment
+
+### Dataset
+
+The Medical Speech dataset is not tracked in Git. Please see `data/Medical Speech, Transcription, and Intent/README.md` for instructions on obtaining the dataset.
+
+### Development Environment
+
+For setting up the development environment:
+1. Clone this repository
+2. Follow instructions in `SETUP_GUIDE.md`
+3. Run `test_environment.py` to verify your setup

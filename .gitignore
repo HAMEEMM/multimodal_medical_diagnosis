@@ -67,6 +67,10 @@ target/
 
 # Jupyter Notebook  
 .ipynb_checkpoints  
+*/.ipynb_checkpoints/*
+# Keep the notebook outputs out of version control to reduce diff noise
+# If you want to track outputs, comment the next line
+# *.ipynb
 
 # pyenv  
 .python-version  
@@ -76,6 +80,10 @@ celerybeat-schedule
 
 # SageMath parsed files  
 *.sage.py  
+
+# Streamlit
+.streamlit/config.toml
+.streamlit/secrets.toml
 
 # Python environment    
 .env  
@@ -107,19 +115,35 @@ venv.bak/
 !.vscode/extensions.json  
 
 # Data files  
-data/  
+# Ignore all audio files in recordings directories
+data/Medical*/recordings/**/*.wav
+data/Medical*/recordings/**/*.mp3
+data/Medical*/recordings/**/*.flac
+
+# Track important data files
+!data/Medical\ Speech,\ Transcription,\ and\ Intent/overview-of-recordings.csv
+# Track README files in data directories
+!data/Medical\ Speech,\ Transcription,\ and\ Intent/README.md
 processed/  
 results/
-recording/train/*.wav  
-recording/test/*.wav  
-recording/validate/*.wav  
 
 # Large model files  
 *.pkl  
 *.h5
-results/models/*.h5  
-results/models/*.keras
+*.keras
+results/models/
+checkpoint/
+
+# Project specific
+.medical_diagnosis/
 
 # OS files  
 .DS_Store  
-Thumbs.db  
+Thumbs.db
+
+# Large document files - consider whether you want to track these or not
+docs/*.pdf
+docs/*.docx
+docs/*.pptx
+# To track specific files, uncomment the following lines:
+# !docs/MahdiH\ Final\ Dissertation\ Manuscript.pdf
