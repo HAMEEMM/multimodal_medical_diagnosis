@@ -69,8 +69,8 @@ def clean_and_organize_dataset(download_path):
             os.remove(os.path.join(download_path, file))  
     
     # List subdirectories  
-    subdirs = [d for d in os.listdir(download_path)   
-               if os.path.isdir(os.path.join(download_path, d))]  
+    subdirs = [d for d in os.listdir(download_path)
+            if os.path.isdir(os.path.join(download_path, d))]  
     
     # Check for nested directories (double unzip issue)  
     if len(subdirs) > 1:  
