@@ -1,0 +1,252 @@
+[
+  {
+    "sample_id": 1,
+    "original_text": "Patient complains of severe chest pain and difficulty breathing for the past 2 hours",
+    "processed_text": "patient complains severe chest pain and difficulty breathing for the past hours",
+    "predicted_condition": "Hard to breath",
+    "confidence": 0.29670511235116226,
+    "top_predictions": [
+      {
+        "condition": "Hard to breath",
+        "probability": 0.29670511235116226,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Heart hurts",
+        "probability": 0.2142546299564513,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Cough",
+        "probability": 0.09074666171244769,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 2,
+    "original_text": "Experiencing persistent headache with nausea and sensitivity to light for 3 days",
+    "processed_text": "experiencing persistent headache with nausea and sensitivity light for days",
+    "predicted_condition": "Head ache",
+    "confidence": 0.24892222340051176,
+    "top_predictions": [
+      {
+        "condition": "Head ache",
+        "probability": 0.24892222340051176,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Joint pain",
+        "probability": 0.06684133505814929,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Infected wound",
+        "probability": 0.06380489412116082,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 3,
+    "original_text": "Child has high fever, runny nose, and persistent cough lasting one week",
+    "processed_text": "child has high fever runny nose and persistent cough lasting one week",
+    "predicted_condition": "Infected wound",
+    "confidence": 0.16456518373157447,
+    "top_predictions": [
+      {
+        "condition": "Cough",
+        "probability": 0.16456518373157447,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Feeling cold",
+        "probability": 0.14577235068726765,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Infected wound",
+        "probability": 0.12585237415841352,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 4,
+    "original_text": "Patient reports chronic lower back pain that radiates down the left leg",
+    "processed_text": "patient reports chronic lower back pain that radiates down the left leg",
+    "predicted_condition": "Back pain",
+    "confidence": 0.5874337200117002,
+    "top_predictions": [
+      {
+        "condition": "Back pain",
+        "probability": 0.5874337200117002,
+        "confidence_level": "Medium"
+      },
+      {
+        "condition": "Muscle pain",
+        "probability": 0.06464091685817255,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Joint pain",
+        "probability": 0.042624875409918876,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 5,
+    "original_text": "Sudden onset of dizziness, confusion, and slurred speech this morning",
+    "processed_text": "sudden onset dizziness confusion and slurred speech this morning",
+    "predicted_condition": "Joint pain",
+    "confidence": 0.16068392008206503,
+    "top_predictions": [
+      {
+        "condition": "Joint pain",
+        "probability": 0.16068392008206503,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Feeling dizzy",
+        "probability": 0.09001146331228184,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Body feels weak",
+        "probability": 0.0739190222158892,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 6,
+    "original_text": "Abdominal pain in the right lower quadrant with vomiting and loss of appetite",
+    "processed_text": "abdominal pain the right lower quadrant with vomiting and loss appetite",
+    "predicted_condition": "Internal pain",
+    "confidence": 0.19855956657906426,
+    "top_predictions": [
+      {
+        "condition": "Internal pain",
+        "probability": 0.19855956657906426,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Stomach ache",
+        "probability": 0.1512835180415567,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Muscle pain",
+        "probability": 0.11897150230975649,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 7,
+    "original_text": "Persistent fatigue, weight loss, and night sweats over the past month",
+    "processed_text": "persistent fatigue weight loss and night sweats over the past month",
+    "predicted_condition": "Infected wound",
+    "confidence": 0.1067700393509216,
+    "top_predictions": [
+      {
+        "condition": "Cough",
+        "probability": 0.1067700393509216,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Hard to breath",
+        "probability": 0.08417553495368374,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Knee pain",
+        "probability": 0.07805103941932409,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 8,
+    "original_text": "Sharp pain in the knee joint with swelling after a fall yesterday",
+    "processed_text": "sharp pain the knee joint with swelling after fall yesterday",
+    "predicted_condition": "Joint pain",
+    "confidence": 0.17430264392673644,
+    "top_predictions": [
+      {
+        "condition": "Muscle pain",
+        "probability": 0.17430264392673644,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Joint pain",
+        "probability": 0.17208856063982814,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Knee pain",
+        "probability": 0.15166141497060084,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 9,
+    "original_text": "Burning sensation during urination with frequent urge to urinate",
+    "processed_text": "burning sensation during urination with frequent urge urinate",
+    "predicted_condition": "Injury from sports",
+    "confidence": 0.09785342444086555,
+    "top_predictions": [
+      {
+        "condition": "Cough",
+        "probability": 0.09785342444086555,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Joint pain",
+        "probability": 0.09687634080820273,
+        "confidence_level": "Low"
+      },
+      {
+        "condition": "Injury from sports",
+        "probability": 0.08106262828665384,
+        "confidence_level": "Low"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  },
+  {
+    "sample_id": 10,
+    "original_text": "Skin rash with red, itchy patches spreading across arms and torso",
+    "processed_text": "skin rash with red itchy patches spreading across arms and torso",
+    "predicted_condition": "Skin issue",
+    "confidence": 0.939400065911829,
+    "top_predictions": [
+      {
+        "condition": "Skin issue",
+        "probability": 0.939400065911829,
+        "confidence_level": "High"
+      }
+    ],
+    "feature_type": "TF-IDF",
+    "model_name": "SVC"
+  }
+]
