@@ -23,7 +23,7 @@ nltk==3.8.1                   # Natural Language Toolkit for text processing
 
 # Deep learning (Natural Language Processing)
 spacy==3.5.0                  # Industrial-strength NLP library
-transformers==4.29.2          # State-of-the-art NLP models (BERT, GPT, etc.)  
+transformers==4.50.0          # State-of-the-art NLP models (BERT, GPT, etc.)  
 # spaCy English model (run separately after install):
 # python -m spacy download en_core_web_sm
 
