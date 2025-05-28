@@ -38,7 +38,7 @@ tqdm==4.65.0                  # Progress bar for loops and data processing
 ipywidgets==8.0.6             # Interactive widgets for Jupyter notebooks  
 
 # Deployment and cloud services
-streamlit==1.22.0
+streamlit==1.37.0
 
 # Additional libraries
 gensim==4.3.0                 # Topic modeling and word embeddings
