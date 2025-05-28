@@ -10,29 +10,29 @@
       "accuracy_threshold": 0.75
     },
     "best_model_performance": {
-      "precision": 0.6784631185807656,
-      "recall": 0.6308571428571428,
-      "f1_score": 0.634801327327643,
+      "precision": 0.6666984126984127,
+      "recall": 0.6350476190476191,
+      "f1_score": 0.6322180042180042,
       "accuracy": 0.6312056737588653
     },
     "hypothesis_results": {
       "precision": {
-        "value": 0.6784631185807656,
+        "value": 0.6666984126984127,
         "threshold": 0.75,
         "meets_threshold": false,
-        "difference": -0.07153688141923442
+        "difference": -0.08330158730158732
       },
       "recall": {
-        "value": 0.6308571428571428,
+        "value": 0.6350476190476191,
         "threshold": 0.7,
         "meets_threshold": false,
-        "difference": -0.06914285714285717
+        "difference": -0.06495238095238087
       },
       "f1_score": {
-        "value": 0.634801327327643,
+        "value": 0.6322180042180042,
         "threshold": 0.72,
         "meets_threshold": false,
-        "difference": -0.08519867267235692
+        "difference": -0.08778199578199575
       },
       "accuracy": {
         "value": 0.6312056737588653,
@@ -46,14 +46,14 @@
     "clinical_implications": "INSUFFICIENT for provider decision support"
   },
   "best_model": {
-    "name": "Support Vector Machine",
+    "name": "Bagging",
     "features": "TF-IDF",
     "performance": {
-      "precision": 0.6784631185807656,
-      "recall": 0.6308571428571428,
-      "f1_score": 0.634801327327643,
+      "precision": 0.6666984126984127,
+      "recall": 0.6350476190476191,
+      "f1_score": 0.6322180042180042,
       "accuracy": 0.6312056737588653
     }
   },
-  "timestamp": "2025-05-27T23:08:48.392235"
+  "timestamp": "2025-05-28T10:08:37.913220"
 }
