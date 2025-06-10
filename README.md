@@ -194,7 +194,6 @@ jupyter notebook notebooks/
    - Examine audio properties (duration, frequency components, class distribution)
    - Generate insights for preprocessing decisions
    - Identify implications for both research questions (RQ1 and RQ2)
-
 2. **Text Classification Notebook**: Process and model text data (Addresses RQ1)
 
    - Clean and normalize medical text
@@ -202,7 +201,6 @@ jupyter notebook notebooks/
    - Train and evaluate text classification models
    - Test Hypothesis H10/H1a using 70% F1 score threshold
    - Analyze per-condition performance for clinical relevance
-
 3. **Audio Classification Notebook**: Process and model audio data (Addresses RQ2)
 
    - Preprocess audio recordings
@@ -210,7 +208,6 @@ jupyter notebook notebooks/
    - Train and evaluate audio classification models
    - Test Hypothesis H20/H2a using 70% F1 score threshold
    - Analyze strengths and limitations for different medical conditions
-
 4. **Combined Model Notebook**: Integrate multimodal data (Synthesizes RQ1 & RQ2)
 
    - Implement feature fusion approaches
@@ -248,13 +245,11 @@ This will start the application on `http://localhost:8501` (or another port if 8
    - Stopword removal
    - Lemmatization using biomedical-specific lemmatizers
    - Handling of numeric values and units
-
 2. **Feature Extraction**:
 
    - TF-IDF vectorization with n-gram ranges (1-3)
    - Word embeddings (Word2Vec trained on medical corpora)
    - Contextual embeddings (BioBERT or ClinicalBERT)
-
 3. **Models Implemented**:
 
    - Support Vector Machines
@@ -272,7 +267,6 @@ This will start the application on `http://localhost:8501` (or another port if 8
    - Silence removal
    - Amplitude normalization
    - Signal segmentation
-
 2. **Feature Extraction**:
 
    - Mel-Frequency Cepstral Coefficients (MFCCs)
@@ -280,7 +274,6 @@ This will start the application on `http://localhost:8501` (or another port if 8
    - Chroma Features
    - Spectral Contrast
    - Tonnetz features
-
 3. **Models Implemented**:
 
    - Convolutional Neural Networks (CNN)
@@ -295,7 +288,6 @@ This will start the application on `http://localhost:8501` (or another port if 8
    - Early fusion (feature concatenation)
    - Late fusion (prediction averaging/voting)
    - Hybrid approaches
-
 2. **Ensemble Techniques**:
 
    - Weighted voting
@@ -358,27 +350,23 @@ _Note: Full details including per-condition analysis are available in the disser
    ```
    Solution: Run nltk_setup.py manually or use a proxy if behind a firewall
    ```
-
 2. **Audio Processing Library Issues**:
 
    ```
    Solution: Ensure librosa and its dependencies are correctly installed:
    pip install librosa==0.9.2
    ```
-
 3. **CUDA/GPU Errors**:
 
    ```
    Solution: Check compatible versions of CUDA and PyTorch/TensorFlow
    For CPU-only: pip install tensorflow-cpu
    ```
-
 4. **Memory Issues with Large Models**:
 
    ```
    Solution: Reduce batch size or model complexity in the notebooks
    ```
-
 5. **Streamlit Application Errors**:
 
    ```
