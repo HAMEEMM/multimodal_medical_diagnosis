@@ -421,13 +421,13 @@ We welcome contributions from the community! Please follow these guidelines:
 **Hameem Mahdi**
 
 - 📧 Email: [Mahdi.Hameem@gmail.com](mailto:Mahdi.Hameem@gmail.com)
-- 🎓 Institution: National University
+- 🎓 Institution: [National University](https://www.nu.edu/degrees/engineering-data-and-computer-sciences/programs/doctor-of-philosophy-in-data-science/)
 - 💼 LinkedIn: [Connect with me](https://linkedin.com/in/hameem-mahdi)
-- 🐙 GitHub: [@hameem-mahdi](https://github.com/hameem-mahdi)
+- 🐙 GitHub: [@HAMEEMM](https://github.com/HAMEEMM)
 
 ### Research Supervision
 
-- **Program**: Master of Science in Data Science
+- **Program**: Doctorate of Science in Data Science
 - **Institution**: National University
 - **Research Focus**: Multimodal AI for Healthcare Applications
 
