@@ -129,12 +129,12 @@ data/processed/
 *.wma
 
 # Image files
-*.jpg
 *.jpeg
 *.gif
 *.bmp
 *.tiff
 *.svg
+*.png
 
 # Video files
 *.mp4
