@@ -116,7 +116,6 @@ data/processed/
 *.json
 *.parquet
 *.feather
-*.h5
 *.hdf5
 
 # Audio files
@@ -149,7 +148,6 @@ models/
 *.pkl
 *.pickle
 *.joblib
-*.h5
 *.hdf5
 *.pb
 *.onnx
@@ -159,7 +157,6 @@ models/
 *.bin
 saved_models/
 checkpoints/
-best_models/
 
 # Logs and outputs
 logs/
