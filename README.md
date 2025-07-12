@@ -474,9 +474,9 @@ combined_prediction = predictor.predict(text_description, audio_file)
 | Model          | Accuracy   | Precision  | Recall     | F1-Score   | Status |
 | -------------- | ---------- | ---------- | ---------- | ---------- | ------ |
 | CNN            | **0.9955** | **0.9958** | **0.9955** | **0.9955** | ✅      |
-| Feedforward NN | 0.9950     | 0.9953     | 0.9950     | 0.9950     | ✅      |
-| SVM            | 0.9894     | 0.9897     | 0.9894     | 0.9894     | ✅      |
-| Naive Bayes    | 0.9894     | 0.9897     | 0.9894     | 0.9894     | ✅      |
+| Linear SVM | 0.9947     | 0.9952     | 0.9947     | 0.9947     | ✅      |
+| Logistic Regression           | 0.9940     | 0.9945     | 0.9940     | 0.9940     | ✅      |
+| Naive Bayes    | 0.9797     | 0.9813     | 0.9797     | 0.9795    | ✅      |
 
 **Outcome**: **H1a ACCEPTED** (Alternative hypothesis accepted)
 - All models achieved >75% clinical threshold
@@ -504,7 +504,7 @@ combined_prediction = predictor.predict(text_description, audio_file)
 
 | Model         | Accuracy   | Precision  | Recall     | F1-Score   | Status |
 | ------------- | ---------- | ---------- | ---------- | ---------- | ------ |
-| CNN for Audio | **0.9947** | **0.9951** | **0.9947** | **0.9947** | ✅      |
+| CNN for Audio and Text| **0.9955** | **0.9958** | **0.9955** | **0.9955** | ✅      |
 
 **Outcome**: **H3a ACCEPTED** (Alternative hypothesis accepted)
 - Model achieved >75% clinical threshold
