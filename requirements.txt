@@ -1,0 +1,53 @@
+# Core scientific and data processing libraries  
+numpy==1.23.5                 # Compatible with TensorFlow 2.12.0  
+pandas==2.0.2                 # Data manipulation and analysis library  
+scipy==1.10.1                 # Scientific computing library  
+textblob==0.17.1              # For sentiment analysis of text data
+textstat==0.7.3               # Text readability and complexity metrics
+joblib==1.3.1                 # Lightweight pipelining in Python
+
+# Data downloading and management
+kaggle==1.5.16                # Kaggle API for dataset downloading
+requests==2.31.0              # HTTP library for data downloading
+zipfile36==0.1.3              # Enhanced zipfile handling
+
+# Visualization libraries  
+matplotlib==3.7.1             # Comprehensive plotting and visualization library  
+seaborn==0.12.2               # Statistical data visualization  
+plotly==5.14.1                # Interactive visualization library  
+wordcloud==1.9.2              # Word cloud generator for text visualization  
+pillow==11.2.1                # Python Imaging Library (PIL) for image processing
+
+# Machine learning libraries  
+scikit-learn==1.2.2           # Machine learning algorithms and tools  
+xgboost==1.7.5                # Gradient boosting framework  
+tensorflow==2.12.0            # Deep learning framework  
+keras==2.12.0                 # High-level neural networks API (included with TensorFlow)
+imbalanced-learn==0.12.4      # Tools for handling imbalanced datasets
+nltk==3.8.1                   # Natural Language Toolkit for text processing
+
+# Deep learning (Natural Language Processing)
+spacy==3.5.0                  # Industrial-strength NLP library
+transformers==4.29.2          # State-of-the-art NLP models (BERT, GPT, etc.)  
+# spaCy English model (run separately after install):
+# python -m spacy download en_core_web_sm
+
+# Audio processing  
+librosa==0.10.0               # Audio and music analysis library  
+soundfile==0.12.1             # Audio file reading/writing  
+speechpy==2.4                 # Alternative to deprecated python-speech-features
+
+# Development and notebook tools  
+jupyter==1.0.0                # Interactive computing environment  
+tqdm==4.65.0                  # Progress bar for loops and data processing  
+ipywidgets==8.0.6             # Interactive widgets for Jupyter notebooks  
+
+# Deployment and cloud services
+streamlit==1.22.0
+
+# Additional libraries
+gensim==4.3.0                 # Topic modeling and word embeddings
+
+# JAX (compatible versions for Python 3.9.6)
+jax==0.4.13                   # JAX - Autograd and XLA
+jaxlib==0.4.13                # JAX's XLA bindings
