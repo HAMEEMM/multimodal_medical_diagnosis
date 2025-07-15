@@ -1,8 +1,8 @@
 # 🏥 Multimodal Medical Diagnosis System
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.12.0-orange.svg)](https://tensorflow.org/)
-[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.2.2-green.svg)](https://scikit-learn.org/)
+[![Python](https://img.shields.io/badge/Python-3.12.10-blue.svg)](https://www.python.org/downloads/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.19.0-orange.svg)](https://tensorflow.org/)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.6.1-green.svg)](https://scikit-learn.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Active%20Research-brightgreen.svg)]()
 
@@ -26,12 +26,12 @@
 
 This project implements a comprehensive **Multimodal Medical Diagnosis System** through three distinct classification approaches that leverage **Text Analysis**, **Audio Analysis**, and **Combined Audio+Text Analysis** to assist healthcare providers in clinical decision-making. The system analyzes patient symptom descriptions through voice recordings and transcribed text data to predict medical conditions with varying degrees of accuracy depending on the modality used.
 
-> **🛠️ Tested Environment**: This project has been successfully tested and deployed with **Python 3.12.10** in a virtual environment on **Windows 11**. All dependencies are locked to specific versions in `requirements.txt` for reproducible results.
+> **🛠️ Tested Environment**: This project has been successfully tested and deployed with **Python 3.12.10** in a virtual environment (`.medical_diagnosis`) on **Windows 11**. All dependencies are automatically managed through the virtual environment for reproducible results.
 
 ### 🎯 Key Features
 
 - **📝 Text Classification**: Advanced NLP using TF-IDF, lemmatization, and deep learning models achieving 99.55% F1-Score
-- **🎤 Audio Classification**: Acoustic feature extraction (MFCCs, spectral, temporal features) with traditional ML models achieving 39.22% F1-Score  
+- **🎤 Audio Classification**: Acoustic feature extraction (MFCCs, spectral, temporal features) with traditional ML models achieving 39.22% F1-Score
 - **🔀 Multimodal (Audio + Text) Classification**: Combined analysis achieving 99.55% F1-Score for enhanced diagnostic accuracy
 - **🤖 Multiple Algorithm Support**: Support Vector Machines, Logistic Regression, Naive Bayes, CNN, Feedforward Neural Networks
 - **📊 Comprehensive Evaluation**: Advanced metrics including accuracy, precision, recall, F1-score, Cohen's Kappa, Matthews Correlation
@@ -42,18 +42,19 @@ This project implements a comprehensive **Multimodal Medical Diagnosis System** 
 ### 📚 Three Notebook Implementation
 
 1. **Text Classification** (`medical_diagnosis_text_classification.ipynb`)
+
    - Pure NLP approach to symptom text analysis
    - Advanced text preprocessing and feature engineering
    - Multiple traditional ML and deep learning models
    - **Result**: 99.55% F1-Score (Clinical threshold: PASSED)
+2. **Audio Classification** (`medical_diagnosis_audio_classification.ipynb`)
 
-2. **Audio Classification** (`medical_diagnosis_audio_classification.ipynb`)  
    - Pure acoustic feature extraction and analysis
    - Comprehensive audio signal processing
    - Traditional ML models optimized for audio features
    - **Result**: 39.22% F1-Score (Clinical threshold: FAILED)
-
 3. **Multimodal Classification** (`medical_diagnosis_audio_and_text_classification.ipynb`)
+
    - Combined audio and text feature analysis
    - Feature fusion and multimodal learning
    - Enhanced performance through complementary modalities
@@ -122,7 +123,7 @@ This project implements a comprehensive **Multimodal Medical Diagnosis System** 
   - Total Samples: 6,661 entries
 - **Medical Categories**: Multiple diagnostic categories including:
   - **Pain-related**: Back pain, Head ache, Knee pain, Shoulder pain, Neck pain, Muscle pain
-  - **Respiratory**: Hard to breath  
+  - **Respiratory**: Hard to breath
   - **Digestive**: Stomach ache
   - **Skin conditions**: Skin issue, Acne, Hair falling out
   - **Systemic**: Body feels weak, Feeling dizzy, Emotional pain
@@ -136,14 +137,17 @@ This project implements a comprehensive **Multimodal Medical Diagnosis System** 
 ### Data Variables by Classification Type
 
 #### Text Classification Variables
+
 - **phrase**: Text transcriptions containing patient symptom descriptions
 - **prompt**: Corresponding medical diagnosis/category for each text entry
 
-#### Audio Classification Variables  
+#### Audio Classification Variables
+
 - **file_name**: Audio file identifier and path to WAV files
 - **prompt**: Corresponding medical diagnosis/category for each audio sample
 
 #### Multimodal (Audio + Text) Classification Variables
+
 - **phrase**: Text transcriptions for text component analysis
 - **file_name**: Audio files for acoustic feature extraction
 - **prompt**: Target diagnostic categories for both modalities
@@ -229,52 +233,49 @@ The system implements three distinct classification pipelines, each optimized fo
 
 ### Prerequisites
 
-- **Python**: 3.9 or higher (Tested with Python 3.12.10)
+- **Python**: 3.12.10 (Active Version in Virtual Environment)
+- **Virtual Environment**: `.medical_diagnosis` (Pre-configured and Active)
 - **Operating System**: Windows 10/11, macOS, or Linux
 - **Memory**: Minimum 8GB RAM (16GB recommended)
 - **Storage**: At least 10GB free space
 - **GPU**: NVIDIA GPU with CUDA support (optional, for faster training)
+- **Jupyter Kernel**: Python 3.12.10 configured for notebook execution
 
 ### Environment Setup
 
-1. **Clone the Repository**
+> **Note**: The project environment is already configured. The `.medical_diagnosis` virtual environment with Python 3.12.10 is active and ready to use.
+
+1. **Repository Access**
 
 ```bash
-git clone https://github.com/HAMEEMM/multimodal_medical_diagnosis.git
-cd multimodal_medical_diagnosis
+# Navigate to the project directory
+cd "d:\Msc\NCU\Doctoral Record\multimodal_medical_diagnosis"
 ```
 
-2. **Create Virtual Environment**
+2. **Virtual Environment** (Already Configured)
 
 ```bash
-# Using conda (recommended)
-conda create -n medical_diagnosis python=3.9
-conda activate medical_diagnosis
+# Current active environment: .medical_diagnosis
+# Python version: 3.12.10
+# Status: ✅ Active and configured
 
-# Or using venv (Windows PowerShell)
-python -m venv .medical_diagnosis
-# Windows PowerShell
-.\.medical_diagnosis\Scripts\Activate.ps1
-# Windows Command Prompt
-.\.medical_diagnosis\Scripts\activate.bat
-# macOS/Linux
-source .medical_diagnosis/bin/activate
+# To verify environment status:
+python --version  # Should show: Python 3.12.10
+
+# Environment is automatically activated - look for (.medical_diagnosis) in terminal prompt
 ```
 
-3. **Install Dependencies**
+3. **Package Management** (Auto-managed)
 
 ```bash
-# Install all required packages from requirements.txt
-pip install -r requirements.txt
+# All packages are installed and up-to-date
+# To view installed packages:
+pip list
 
-# For GPU support (optional, if you have NVIDIA GPU)
-pip install tensorflow-gpu
+# To install additional packages (if needed):
+pip install package_name
 
-# Download required NLTK data
-python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('vader_lexicon')"
-
-# Download spaCy English model
-python -m spacy download en_core_web_sm
+# All dependencies are automatically resolved through the active environment
 ```
 
 ### Environment Verification
@@ -282,7 +283,7 @@ python -m spacy download en_core_web_sm
 After installation, verify your environment setup:
 
 ```bash
-# Check Python version (should be 3.9+)
+# Check Python version (should be 3.12.10)
 python --version
 
 # Verify virtual environment is activated (should show environment name)
@@ -292,21 +293,42 @@ echo $env:VIRTUAL_ENV  # Windows PowerShell
 # Test key package imports
 python -c "import numpy, pandas, tensorflow, librosa, sklearn; print('All packages imported successfully!')"
 
-# Check TensorFlow GPU availability (if applicable)
-python -c "import tensorflow as tf; print('GPU Available:', tf.config.list_physical_devices('GPU'))"
+# Check TensorFlow version and GPU availability (if applicable)
+python -c "import tensorflow as tf; print(f'TensorFlow version: {tf.__version__}'); print('GPU Available:', tf.config.list_physical_devices('GPU'))"
 ```
+
+### Current Environment Status
+
+✅ **Environment Configuration**:
+
+- **Python Version**: 3.12.10 ✓
+- **Virtual Environment**: `.medical_diagnosis` (Active) ✓
+- **Jupyter Kernel**: Python 3.12.10 configured ✓
+- **Package Dependencies**: All major packages updated and verified ✓
+
+✅ **Key Package Versions** (Currently Installed):
+
+- **TensorFlow**: 2.19.0 (Latest)
+- **Scikit-learn**: 1.6.1 (Latest)
+- **NumPy**: 2.1.3 (Latest)
+- **Pandas**: 2.3.1 (Latest)
+- **Librosa**: 0.11.0 (Latest)
+- **Jupyter**: 1.1.1 with JupyterLab 4.4.4
 
 ### Virtual Environment Status Indicators
 
 **✅ Environment Activated:**
+
 - Terminal prompt shows `(.medical_diagnosis)` prefix
 - Example: `(.medical_diagnosis) PS D:\your\project\path>`
 
 **❌ Environment Not Activated:**
+
 - No prefix in terminal prompt
 - Example: `PS D:\your\project\path>`
 
 **To Activate Environment:**
+
 ```bash
 # Windows PowerShell
 .\.medical_diagnosis\Scripts\Activate.ps1
@@ -318,81 +340,79 @@ python -c "import tensorflow as tf; print('GPU Available:', tf.config.list_physi
 source .medical_diagnosis/bin/activate
 ```
 
-### Required Libraries
+### Required Libraries (Current Installation)
 
 ```python
-# Core Data Science Libraries (from requirements.txt)
-numpy==1.23.5                 # Compatible with TensorFlow 2.12.0
-pandas==2.0.2                 # Data manipulation and analysis library
-scipy==1.10.1                 # Scientific computing library
+# Core Data Science Libraries (Currently Installed)
+numpy==2.1.3                  # Multi-dimensional array computing
+pandas==2.3.1                 # Data manipulation and analysis library
+scipy==1.16.0                 # Scientific computing library
 
 # Machine Learning Libraries
-scikit-learn==1.2.2           # Machine learning algorithms and tools
-xgboost==1.7.5                # Gradient boosting framework
-imbalanced-learn==0.12.4      # Tools for handling imbalanced datasets
+scikit-learn==1.6.1           # Machine learning algorithms and tools
+xgboost==3.0.2                # Gradient boosting framework
+imbalanced-learn==0.13.0      # Tools for handling imbalanced datasets
 
 # Deep Learning
-tensorflow==2.12.0            # Deep learning framework
-keras==2.12.0                 # High-level neural networks API (included with TensorFlow)
+tensorflow==2.19.0            # Deep learning framework
+keras==3.10.0                 # High-level neural networks API
 
 # Audio Processing
-librosa==0.10.0               # Audio and music analysis library
-soundfile==0.12.1             # Audio file reading/writing
-speechpy==2.4                 # Alternative to deprecated python-speech-features
-
-# Natural Language Processing
-nltk==3.8.1                   # Natural Language Toolkit for text processing
-spacy==3.5.0                  # Industrial-strength NLP library
-transformers==4.29.2          # State-of-the-art NLP models (BERT, GPT, etc.)
-textblob==0.17.1              # For sentiment analysis of text data
-textstat==0.7.3               # Text readability and complexity metrics
+librosa==0.11.0               # Audio and music analysis library
+soundfile==0.13.1             # Audio file reading/writing
+noisereduce==3.0.3            # Audio noise reduction
 
 # Visualization
-matplotlib==3.7.1             # Comprehensive plotting and visualization library
-seaborn==0.12.2               # Statistical data visualization
-plotly==5.14.1                # Interactive visualization library
-wordcloud==1.9.2              # Word cloud generator for text visualization
-pillow==11.2.1                # Python Imaging Library (PIL) for image processing
+matplotlib==3.10.3            # Comprehensive plotting and visualization library
+seaborn==0.13.2               # Statistical data visualization
+plotly==6.2.0                 # Interactive visualization library
+pillow==11.3.0                # Python Imaging Library (PIL) for image processing
 
 # Development and Notebook Tools
-jupyter==1.0.0                # Interactive computing environment
-tqdm==4.65.0                  # Progress bar for loops and data processing
-ipywidgets==8.0.6             # Interactive widgets for Jupyter notebooks
-
-# Data Management
-kaggle==1.5.16                # Kaggle API for dataset downloading
-requests==2.31.0              # HTTP library for data downloading
-zipfile36==0.1.3              # Enhanced zipfile handling
+jupyter==1.1.1                # Interactive computing environment
+jupyterlab==4.4.4             # JupyterLab interface
+ipykernel==6.29.5             # Jupyter kernel for Python
+ipywidgets==8.1.7             # Interactive widgets for Jupyter notebooks
+tqdm==4.67.1                  # Progress bar for loops and data processing
 
 # Utilities
-joblib==1.3.1                 # Lightweight pipelining in Python
-gensim==4.3.0                 # Topic modeling and word embeddings
-streamlit==1.22.0             # Deployment and cloud services
+joblib==1.5.1                 # Lightweight pipelining in Python
+requests==2.32.4              # HTTP library for data downloading
+psutil==7.0.0                 # System and process utilities
 ```
 
-# Visualization
-matplotlib>=3.5.0
-seaborn>=0.11.0
-plotly>=5.0.0
+### Virtual Environment Information
 
-# Machine Learning Enhancement
-imbalanced-learn>=0.8.0
-optuna>=2.10.0  # For hyperparameter optimization
+- **Environment Name**: `.medical_diagnosis`
+- **Python Version**: 3.12.10
+- **Environment Type**: Virtual Environment
+- **Activation Status**: ✅ Active
+- **Package Management**: pip-based with automatic dependency resolution
+- **Jupyter Kernel**: Configured for notebook execution
 
-# Utilities
-tqdm>=4.62.0
-joblib>=1.1.0
+### Jupyter Notebook Configuration
+
+The project notebooks are configured to use the Python 3.12.10 kernel from the `.medical_diagnosis` virtual environment:
+
+```bash
+# Start Jupyter Notebook (recommended)
+jupyter notebook
+
+# Or start JupyterLab (alternative interface)
+jupyter lab
+
+# Notebooks are located in the notebooks/ directory:
+# - medical_diagnosis_text_classification.ipynb
+# - medical_diagnosis_audio_classification.ipynb  
+# - medical_diagnosis_audio_and_text_classification.ipynb
 ```
 
-### NLTK Data Setup
+**Kernel Information**:
 
-```python
-import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('vader_lexicon')
-```
+- **Kernel Name**: Python 3.12.10 (.medical_diagnosis)
+- **Environment**: `.medical_diagnosis` virtual environment
+- **Python Path**: `D:/Msc/NCU/Doctoral Record/multimodal_medical_diagnosis/.medical_diagnosis/Scripts/python.exe`
+- **Package Access**: All installed packages available automatically
 
 ## 🚀 Usage Guide
 
@@ -461,28 +481,30 @@ combined_prediction = predictor.predict(text_description, audio_file)
 ### Text Classification Pipeline
 
 1. **Text Preprocessing**
+
    - **Basic Cleaning**: Converts to lowercase, expands contractions (what's → what is, can't → cannot)
    - **Advanced NLP**: NLTK tokenization, lemmatization using WordNetLemmatizer
    - **Stopword Removal**: Filters common words while preserving medical terms (pain, ache, fever, swelling, rash)
    - **Feature Engineering**: TF-IDF vectorization with medical domain optimization
-
 2. **Model Architectures**
-   - **Traditional ML**: Support Vector Machine, Naive Bayes, Logistic Regression  
-   - **Deep Learning**: 
+
+   - **Traditional ML**: Support Vector Machine, Naive Bayes, Logistic Regression
+   - **Deep Learning**:
      - **CNN**: Convolutional layers with text embeddings, GlobalMaxPooling1D
      - **Feedforward NN**: Dense layers with dropout for regularization
    - **Best Performance**: CNN achieving 99.55% F1-Score
-
 3. **Evaluation Framework**
+
    - **Metrics**: Accuracy, Precision, Recall, F1-Score, Cohen's Kappa, Matthews Correlation
    - **Cross-validation**: Stratified K-fold for robust performance estimation
    - **Threshold Analysis**: Clinical deployment threshold (75% minimum)
 
-### Audio Classification Pipeline  
+### Audio Classification Pipeline
 
 1. **Audio Feature Extraction**
+
    - **MFCCs**: 13 Mel-frequency cepstral coefficients capturing spectral envelope
-   - **Spectral Features**: 
+   - **Spectral Features**:
      - Spectral centroid (brightness)
      - Spectral bandwidth (frequency spread)
      - Spectral rolloff (frequency concentration)
@@ -490,13 +512,13 @@ combined_prediction = predictor.predict(text_description, audio_file)
    - **Harmonic Features**: Chroma features for tonal content
    - **Tonnetz Features**: Harmonic network analysis
    - **Statistical Features**: Mean, standard deviation, skewness, kurtosis for each feature
-
 2. **Data Preprocessing**
+
    - **Audio Loading**: Librosa for consistent WAV file processing
    - **Feature Standardization**: StandardScaler for normalized feature ranges
    - **Quality Control**: Audio quality and noise level assessment
-
 3. **Model Architectures**
+
    - **Traditional ML**: Support Vector Machine, Logistic Regression
    - **Feature Selection**: Comprehensive acoustic feature vector
    - **Best Performance**: SVM achieving 39.22% F1-Score (below clinical threshold)
@@ -504,17 +526,18 @@ combined_prediction = predictor.predict(text_description, audio_file)
 ### Multimodal (Audio + Text) Classification Pipeline
 
 1. **Feature Integration**
+
    - **Text Component**: Full NLP preprocessing pipeline from text classification
-   - **Audio Component**: Complete acoustic feature extraction from audio classification  
+   - **Audio Component**: Complete acoustic feature extraction from audio classification
    - **Feature Fusion**: Combined feature vector leveraging both modalities
    - **Dimensionality Management**: Optimized feature selection for computational efficiency
-
 2. **Model Architecture**
+
    - **CNN for Audio**: Specialized convolutional layers for acoustic pattern recognition
    - **Enhanced Performance**: Multimodal approach improves upon individual modalities
    - **Best Performance**: CNN achieving 99.55% F1-Score
-
 3. **Integration Strategy**
+
    - **Early Fusion**: Feature-level combination before model training
    - **Balanced Weighting**: Equal consideration of text and audio features
    - **Robust Validation**: Cross-modal performance verification
@@ -522,18 +545,21 @@ combined_prediction = predictor.predict(text_description, audio_file)
 ### Evaluation Methodology
 
 #### Performance Metrics
+
 - **Primary**: Accuracy, Precision, Recall, F1-Score
 - **Advanced**: Cohen's Kappa (inter-rater agreement), Matthews Correlation Coefficient
 - **Clinical**: Sensitivity, Specificity for medical deployment
 
 #### Statistical Analysis
+
 - **Threshold Testing**: Minimum acceptable (75%), High performance (85%)
 - **Cross-validation**: Stratified sampling for class balance
 - **Significance Testing**: Statistical validation of performance differences
 
 #### Research Hypothesis Framework
+
 - **Text Classification (RQ1)**: H1a ACCEPTED - 99.55% F1-Score exceeds threshold
-- **Audio Classification (RQ2)**: H20 ACCEPTED - 39.22% F1-Score below threshold  
+- **Audio Classification (RQ2)**: H20 ACCEPTED - 39.22% F1-Score below threshold
 - **Multimodal Classification (RQ3)**: H3a ACCEPTED - 99.55% F1-Score exceeds threshold
 
 ## 📈 Results & Performance
@@ -550,6 +576,7 @@ combined_prediction = predictor.predict(text_description, audio_file)
 | Naive Bayes         | 0.9797     | 0.9813     | 0.9797     | 0.9795     | ✅      |
 
 **Outcome**: **H1a ACCEPTED** (Alternative hypothesis accepted)
+
 - All models achieved >75% clinical threshold
 - Best model: CNN with 99.55% F1-Score
 - Text analysis demonstrates HIGH precision and recall sufficient for provider decision support
@@ -564,6 +591,7 @@ combined_prediction = predictor.predict(text_description, audio_file)
 | Logistic Regression | 0.3870     | 0.3870     | 0.3870     | 0.3870     | ❌      |
 
 **Outcome**: **H20 ACCEPTED** (Null hypothesis accepted)
+
 - No models achieved 75% clinical threshold
 - Best model: SVM with only 39.22% F1-Score
 - Audio analysis yields precision and recall metrics INSUFFICIENT for effective provider decision support
@@ -578,8 +606,9 @@ combined_prediction = predictor.predict(text_description, audio_file)
 | CNN for Audio and Text | **0.9955** | **0.9958** | **0.9955** | **0.9955** | ✅      |
 
 **Outcome**: **H3a ACCEPTED** (Alternative hypothesis accepted)
+
 - Model achieved >75% clinical threshold
-- CNN achieved 99.55% F1-Score  
+- CNN achieved 99.55% F1-Score
 - Multimodal analysis results in HIGH precision and recall sufficient for provider decision support
 - **Clinical Recommendation**: Deploy for clinical use
 
@@ -594,17 +623,20 @@ combined_prediction = predictor.predict(text_description, audio_file)
 ### Research Hypothesis Outcomes
 
 #### Text Classification (RQ1)
+
 - **Hypothesis**: H1a ACCEPTED
 - **Evidence**: CNN achieves 99.55% F1-Score (>75% threshold)
 - **Clinical Impact**: Text analysis provides sufficient precision and recall for provider decision support
 
-#### Audio Classification (RQ2)  
+#### Audio Classification (RQ2)
+
 - **Hypothesis**: H20 ACCEPTED (Null hypothesis)
 - **Evidence**: Best SVM achieves only 39.22% F1-Score (<75% threshold)
 - **Clinical Impact**: Audio-only analysis insufficient for effective provider decision support
 
 #### Multimodal Classification (RQ3)
-- **Hypothesis**: H3a ACCEPTED  
+
+- **Hypothesis**: H3a ACCEPTED
 - **Evidence**: CNN achieves 99.55% F1-Score (>75% threshold)
 - **Clinical Impact**: Combined audio+text analysis provides sufficient precision and recall for provider decision support
 
