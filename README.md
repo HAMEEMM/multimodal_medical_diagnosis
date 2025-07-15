@@ -1,8 +1,8 @@
 # 🏥 Multimodal Medical Diagnosis System
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://tensorflow.org/)
-[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-Latest-green.svg)](https://scikit-learn.org/)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.12.0-orange.svg)](https://tensorflow.org/)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.2.2-green.svg)](https://scikit-learn.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Active%20Research-brightgreen.svg)]()
 
@@ -25,6 +25,8 @@
 ## 🔬 Overview
 
 This project implements a comprehensive **Multimodal Medical Diagnosis System** through three distinct classification approaches that leverage **Text Analysis**, **Audio Analysis**, and **Combined Audio+Text Analysis** to assist healthcare providers in clinical decision-making. The system analyzes patient symptom descriptions through voice recordings and transcribed text data to predict medical conditions with varying degrees of accuracy depending on the modality used.
+
+> **🛠️ Tested Environment**: This project has been successfully tested and deployed with **Python 3.12.10** in a virtual environment on **Windows 11**. All dependencies are locked to specific versions in `requirements.txt` for reproducible results.
 
 ### 🎯 Key Features
 
@@ -227,7 +229,7 @@ The system implements three distinct classification pipelines, each optimized fo
 
 ### Prerequisites
 
-- **Python**: 3.8 or higher
+- **Python**: 3.9 or higher (Tested with Python 3.12.10)
 - **Operating System**: Windows 10/11, macOS, or Linux
 - **Memory**: Minimum 8GB RAM (16GB recommended)
 - **Storage**: At least 10GB free space
@@ -246,58 +248,127 @@ cd multimodal_medical_diagnosis
 
 ```bash
 # Using conda (recommended)
-conda create -n medical_diagnosis python=3.8
+conda create -n medical_diagnosis python=3.9
 conda activate medical_diagnosis
 
-# Or using venv
-python -m venv medical_diagnosis
-# Windows
-medical_diagnosis\Scripts\activate
+# Or using venv (Windows PowerShell)
+python -m venv .medical_diagnosis
+# Windows PowerShell
+.\.medical_diagnosis\Scripts\Activate.ps1
+# Windows Command Prompt
+.\.medical_diagnosis\Scripts\activate.bat
 # macOS/Linux
-source medical_diagnosis/bin/activate
+source .medical_diagnosis/bin/activate
 ```
 
 3. **Install Dependencies**
 
 ```bash
-# Core dependencies
+# Install all required packages from requirements.txt
 pip install -r requirements.txt
 
-# For GPU support (optional)
+# For GPU support (optional, if you have NVIDIA GPU)
 pip install tensorflow-gpu
 
-# For audio processing
-pip install librosa soundfile pydub
+# Download required NLTK data
+python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('vader_lexicon')"
 
-# For visualization
-pip install plotly seaborn matplotlib
-
-# For advanced NLP
-pip install transformers spacy
+# Download spaCy English model
 python -m spacy download en_core_web_sm
+```
+
+### Environment Verification
+
+After installation, verify your environment setup:
+
+```bash
+# Check Python version (should be 3.9+)
+python --version
+
+# Verify virtual environment is activated (should show environment name)
+echo $VIRTUAL_ENV  # Linux/macOS
+echo $env:VIRTUAL_ENV  # Windows PowerShell
+
+# Test key package imports
+python -c "import numpy, pandas, tensorflow, librosa, sklearn; print('All packages imported successfully!')"
+
+# Check TensorFlow GPU availability (if applicable)
+python -c "import tensorflow as tf; print('GPU Available:', tf.config.list_physical_devices('GPU'))"
+```
+
+### Virtual Environment Status Indicators
+
+**✅ Environment Activated:**
+- Terminal prompt shows `(.medical_diagnosis)` prefix
+- Example: `(.medical_diagnosis) PS D:\your\project\path>`
+
+**❌ Environment Not Activated:**
+- No prefix in terminal prompt
+- Example: `PS D:\your\project\path>`
+
+**To Activate Environment:**
+```bash
+# Windows PowerShell
+.\.medical_diagnosis\Scripts\Activate.ps1
+
+# Windows Command Prompt  
+.\.medical_diagnosis\Scripts\activate.bat
+
+# Linux/macOS
+source .medical_diagnosis/bin/activate
 ```
 
 ### Required Libraries
 
 ```python
-# Core Data Science
-pandas>=1.3.0
-numpy>=1.21.0
-scikit-learn>=1.0.0
+# Core Data Science Libraries (from requirements.txt)
+numpy==1.23.5                 # Compatible with TensorFlow 2.12.0
+pandas==2.0.2                 # Data manipulation and analysis library
+scipy==1.10.1                 # Scientific computing library
+
+# Machine Learning Libraries
+scikit-learn==1.2.2           # Machine learning algorithms and tools
+xgboost==1.7.5                # Gradient boosting framework
+imbalanced-learn==0.12.4      # Tools for handling imbalanced datasets
 
 # Deep Learning
-tensorflow>=2.8.0
-keras>=2.8.0
+tensorflow==2.12.0            # Deep learning framework
+keras==2.12.0                 # High-level neural networks API (included with TensorFlow)
 
 # Audio Processing
-librosa>=0.9.0
-soundfile>=0.10.0
-pydub>=0.25.0
+librosa==0.10.0               # Audio and music analysis library
+soundfile==0.12.1             # Audio file reading/writing
+speechpy==2.4                 # Alternative to deprecated python-speech-features
 
 # Natural Language Processing
-nltk>=3.7
-textblob>=0.17.0
-spacy>=3.4.0
+nltk==3.8.1                   # Natural Language Toolkit for text processing
+spacy==3.5.0                  # Industrial-strength NLP library
+transformers==4.29.2          # State-of-the-art NLP models (BERT, GPT, etc.)
+textblob==0.17.1              # For sentiment analysis of text data
+textstat==0.7.3               # Text readability and complexity metrics
+
+# Visualization
+matplotlib==3.7.1             # Comprehensive plotting and visualization library
+seaborn==0.12.2               # Statistical data visualization
+plotly==5.14.1                # Interactive visualization library
+wordcloud==1.9.2              # Word cloud generator for text visualization
+pillow==11.2.1                # Python Imaging Library (PIL) for image processing
+
+# Development and Notebook Tools
+jupyter==1.0.0                # Interactive computing environment
+tqdm==4.65.0                  # Progress bar for loops and data processing
+ipywidgets==8.0.6             # Interactive widgets for Jupyter notebooks
+
+# Data Management
+kaggle==1.5.16                # Kaggle API for dataset downloading
+requests==2.31.0              # HTTP library for data downloading
+zipfile36==0.1.3              # Enhanced zipfile handling
+
+# Utilities
+joblib==1.3.1                 # Lightweight pipelining in Python
+gensim==4.3.0                 # Topic modeling and word embeddings
+streamlit==1.22.0             # Deployment and cloud services
+```
 
 # Visualization
 matplotlib>=3.5.0
@@ -471,12 +542,12 @@ combined_prediction = predictor.predict(text_description, audio_file)
 
 **Research Question 1**: What is the effectiveness of the NLP algorithm in classifying patient symptoms from the text data on the population level?
 
-| Model          | Accuracy   | Precision  | Recall     | F1-Score   | Status |
-| -------------- | ---------- | ---------- | ---------- | ---------- | ------ |
-| CNN            | **0.9955** | **0.9958** | **0.9955** | **0.9955** | ✅      |
-| Linear SVM | 0.9947     | 0.9952     | 0.9947     | 0.9947     | ✅      |
-| Logistic Regression           | 0.9940     | 0.9945     | 0.9940     | 0.9940     | ✅      |
-| Naive Bayes    | 0.9797     | 0.9813     | 0.9797     | 0.9795    | ✅      |
+| Model               | Accuracy   | Precision  | Recall     | F1-Score   | Status |
+| ------------------- | ---------- | ---------- | ---------- | ---------- | ------ |
+| CNN                 | **0.9955** | **0.9958** | **0.9955** | **0.9955** | ✅      |
+| Linear SVM          | 0.9947     | 0.9952     | 0.9947     | 0.9947     | ✅      |
+| Logistic Regression | 0.9940     | 0.9945     | 0.9940     | 0.9940     | ✅      |
+| Naive Bayes         | 0.9797     | 0.9813     | 0.9797     | 0.9795     | ✅      |
 
 **Outcome**: **H1a ACCEPTED** (Alternative hypothesis accepted)
 - All models achieved >75% clinical threshold
@@ -502,9 +573,9 @@ combined_prediction = predictor.predict(text_description, audio_file)
 
 **Research Question 3**: How effective is NLP in classifying patient symptoms from audio and text data on the population level?
 
-| Model         | Accuracy   | Precision  | Recall     | F1-Score   | Status |
-| ------------- | ---------- | ---------- | ---------- | ---------- | ------ |
-| CNN for Audio and Text| **0.9955** | **0.9958** | **0.9955** | **0.9955** | ✅      |
+| Model                  | Accuracy   | Precision  | Recall     | F1-Score   | Status |
+| ---------------------- | ---------- | ---------- | ---------- | ---------- | ------ |
+| CNN for Audio and Text | **0.9955** | **0.9958** | **0.9955** | **0.9955** | ✅      |
 
 **Outcome**: **H3a ACCEPTED** (Alternative hypothesis accepted)
 - Model achieved >75% clinical threshold
