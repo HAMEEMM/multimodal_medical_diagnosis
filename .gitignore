@@ -210,7 +210,6 @@ site/
 # Virtual environments
 conda-meta/
 .conda/
-.medical_diagnosis/
 
 # Scientific computing
 .spyderproject
