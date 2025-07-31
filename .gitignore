@@ -156,6 +156,7 @@ models/
 *.pt
 *.pth
 *.bin
+*.npy
 saved_models/
 checkpoints/
 
