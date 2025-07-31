@@ -15,7 +15,7 @@ zipfile36==0.1.3              # Enhanced zipfile handling
 matplotlib==3.10.3            # Comprehensive plotting and visualization library  
 seaborn==0.13.2               # Statistical data visualization  
 plotly==6.2.0                 # Interactive visualization library  
-wordcloud==1.9.2              # Word cloud generator for text visualization  
+wordcloud==1.9.4              # Word cloud generator for text visualization (updated)
 pillow==11.3.0                # Python Imaging Library (PIL) for image processing
 
 # Machine learning libraries  
@@ -28,14 +28,14 @@ nltk==3.9.1                   # Natural Language Toolkit for text processing
 
 # Deep learning (Natural Language Processing)
 spacy==3.8.7                  # Industrial-strength NLP library
-transformers==4.29.2          # State-of-the-art NLP models (BERT, GPT, etc.)  
+# transformers==4.29.2          # State-of-the-art NLP models (BERT, GPT, etc.) (requires Rust compiler)  
 # spaCy English model (run separately after install):
 # python -m spacy download en_core_web_sm
 
-# Audio processing  
-librosa==0.10.0               # Audio and music analysis library  
-soundfile==0.12.1             # Audio file reading/writing  
-speechpy==2.4                 # Alternative to deprecated python-speech-features
+# Audio processing (commented out due to Python 3.13 compatibility issues)
+# librosa==0.10.0               # Audio and music analysis library (requires numba < Python 3.13)
+# soundfile==0.12.1             # Audio file reading/writing  
+# speechpy==2.4                 # Alternative to deprecated python-speech-features
 
 # Development and notebook tools  
 jupyter==1.1.1                # Interactive computing environment  
@@ -45,12 +45,12 @@ ipywidgets==8.1.7             # Interactive widgets for Jupyter notebooks
 tabulate==0.9.0               # Pretty-print tabular data in various formats
 
 # Deployment and cloud services
-streamlit==1.22.0
+# streamlit==1.35.0             # Removed due to numpy compatibility issues
 
-# Additional libraries
-gensim==4.3.0                 # Topic modeling and word embeddings
+# Additional libraries (commented out due to Python 3.13 compatibility issues)
+# gensim==4.3.0                 # Topic modeling and word embeddings (has compatibility issues)
 
 # TensorFlow dependencies (for Python 3.13 compatibility)
 h5py==3.14.0                  # HDF5 file format support for model saving
 absl-py==2.3.1                # TensorFlow dependency
-protobuf==6.31.1              # Protocol buffers for TensorFlow
+protobuf>=5.28.0,<7.0.0       # Protocol buffers for TensorFlow (flexible version for compatibility)
