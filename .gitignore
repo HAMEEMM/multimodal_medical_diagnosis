@@ -169,6 +169,8 @@ plots/
 figures/
 *.png
 *.pdf
+*.docx
+*.pptx
 
 # Temporary files
 tmp/
