@@ -118,6 +118,7 @@ data/processed/
 *.feather
 *.hdf5
 *.h5
+*.keras
 
 # Audio files
 *.wav
