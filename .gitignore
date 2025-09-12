@@ -119,6 +119,7 @@ data/processed/
 *.hdf5
 *.h5
 *.keras
+*.txt
 
 # Audio files
 *.wav
