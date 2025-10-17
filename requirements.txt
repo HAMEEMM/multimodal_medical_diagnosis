@@ -34,7 +34,7 @@ sounddevice>=0.4.6             # Audio I/O library
 # Development and notebook tools  
 jupyter>=1.0.0                 # Interactive computing environment  
 jupyterlab>=4.0.0              # JupyterLab interface
-tqdm==4.66.1                   # Progress bar for loops and data processing  
+tqdm==4.66.3                   # Progress bar for loops and data processing  
 ipywidgets>=8.0.0              # Interactive widgets for Jupyter notebooks  
 tabulate==0.9.0                # Pretty-print tabular data
 
