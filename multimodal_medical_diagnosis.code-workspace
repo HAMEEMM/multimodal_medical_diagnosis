@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "name": "multimodal_medical_diagnosis",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "./.medical_diagnosis/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.envFile": "${workspaceFolder}/.env"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-toolsai.jupyter",
+      "ms-python.black-formatter",
+      "ms-python.isort"
+    ]
+  }
+}
