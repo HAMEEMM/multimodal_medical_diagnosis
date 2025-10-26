@@ -57,7 +57,7 @@
 
 This project implements a comprehensive **Multimodal Medical Diagnosis Research** through three distinct classification approaches that leverage **Text Analysis**, **Audio Analysis**, and **Combined Audio+Text Analysis** to assist healthcare providers in clinical decision-making. The research analyzes patient symptom descriptions through voice recordings and transcribed text data to predict medical conditions with varying degrees of accuracy depending on the modality used.
 
-> **🛠️ Tested Environment**: This project has been successfully tested and deployed with **Python 3.11.9** in a virtual environment (`.medical_diagnosis_py311`) on **Windows 11**. All dependencies are automatically managed through the virtual environment for reproducible results.
+> **🛠️ Tested Environment**: This project has been successfully tested and deployed with **Python 3.11.9** in a virtual environment (`.medical_diagnosis`) on **Windows 11**. All dependencies are automatically managed through the virtual environment for reproducible results.
 
 ### 🎯 Key Features
 
@@ -254,7 +254,7 @@ multimodal_medical_diagnosis/
 ├── 📄 documents/                          # Research documents
 │   ├── MahdiH Dissertation Manuscript.docx
 │   └── MahdiH Oral Defense Presentation.pptx
-├── 🐍 .medical_diagnosis_py311/           # Python 3.11.9 virtual environment
+├── 🐍 .medical_diagnosis/           # Python 3.11.9 virtual environment
 ├── ⚙️ .vscode/                            # VS Code configuration
 │   ├── tasks.json                         # Automated tasks
 │   └── settings.json                      # Workspace settings
@@ -395,7 +395,7 @@ The research implements three distinct classification pipelines, each optimized 
 ### Prerequisites
 
 - **Python**: 3.11.9 (Active Version in Virtual Environment)
-- **Virtual Environment**: `.medical_diagnosis_py311` (Pre-configured and Active)
+- **Virtual Environment**: `.medical_diagnosis` (Pre-configured and Active)
 - **Operating System**: Windows 10/11, macOS, or Linux
 - **Memory**: Minimum 8GB RAM (16GB recommended)
 - **Storage**: At least 10GB free space
@@ -404,7 +404,7 @@ The research implements three distinct classification pipelines, each optimized 
 
 ### Environment Setup
 
-> **Note**: The project environment is already configured. The `.medical_diagnosis_py311` virtual environment with Python 3.11.9 is active and ready to use.
+> **Note**: The project environment is already configured. The `.medical_diagnosis` virtual environment with Python 3.11.9 is active and ready to use.
 
 1. **Repository Access**
 
@@ -416,14 +416,14 @@ cd "G:\Msc\NCU\Doctoral Record\multimodal_medical_diagnosis"
 2. **Virtual Environment** (Already Configured)
 
 ```bash
-# Current active environment: .medical_diagnosis_py311
+# Current active environment: .medical_diagnosis
 # Python version: 3.11.9
 # Status: ✅ Active and configured
 
 # To verify environment status:
 python --version  # Should show: Python 3.11.9
 
-# Environment is automatically activated - look for (.medical_diagnosis_py311) in terminal prompt
+# Environment is automatically activated - look for (.medical_diagnosis) in terminal prompt
 ```
 
 3. **Package Management** (Auto-managed)
@@ -463,7 +463,7 @@ python -c "import tensorflow as tf; print(f'TensorFlow version: {tf.__version__}
 ✅ **Environment Configuration**:
 
 - **Python Version**: 3.11.9 ✓
-- **Virtual Environment**: `.medical_diagnosis_py311` (Active) ✓
+- **Virtual Environment**: `.medical_diagnosis` (Active) ✓
 - **Jupyter Kernel**: Python 3.11.9 configured ✓
 - **Package Dependencies**: All major packages updated and verified ✓
 
@@ -480,8 +480,8 @@ python -c "import tensorflow as tf; print(f'TensorFlow version: {tf.__version__}
 
 **✅ Environment Activated:**
 
-- Terminal prompt shows `(.medical_diagnosis_py311)` prefix
-- Example: `(.medical_diagnosis_py311) PS G:\Msc\NCU\Doctoral Record\multimodal_medical_diagnosis>`
+- Terminal prompt shows `(.medical_diagnosis)` prefix
+- Example: `(.medical_diagnosis) PS G:\Msc\NCU\Doctoral Record\multimodal_medical_diagnosis>`
 
 **❌ Environment Not Activated:**
 
@@ -492,13 +492,13 @@ python -c "import tensorflow as tf; print(f'TensorFlow version: {tf.__version__}
 
 ```bash
 # Windows PowerShell
-.\.medical_diagnosis_py311\Scripts\Activate.ps1
+.\.medical_diagnosis\Scripts\Activate.ps1
 
 # Windows Command Prompt  
-.\.medical_diagnosis_py311\Scripts\activate.bat
+.\.medical_diagnosis\Scripts\activate.bat
 
 # Linux/macOS (if environment exists on Unix systems)
-source .medical_diagnosis_py311/bin/activate
+source .medical_diagnosis/bin/activate
 ```
 
 ### Required Libraries (Current Installation)
@@ -552,7 +552,7 @@ kaggle==1.5.16                # Kaggle API for dataset downloading
 
 ### Virtual Environment Information
 
-- **Environment Name**: `.medical_diagnosis_py311`
+- **Environment Name**: `.medical_diagnosis`
 - **Python Version**: 3.11.9
 - **Environment Type**: Virtual Environment
 - **Activation Status**: ✅ Active
@@ -561,7 +561,7 @@ kaggle==1.5.16                # Kaggle API for dataset downloading
 
 ### Jupyter Notebook Configuration
 
-The project notebooks are configured to use the Python 3.11.9 kernel from the `.medical_diagnosis_py311` virtual environment:
+The project notebooks are configured to use the Python 3.11.9 kernel from the `.medical_diagnosis` virtual environment:
 
 ```bash
 # Start Jupyter Notebook (recommended)
@@ -578,9 +578,9 @@ jupyter lab
 
 **Kernel Information**:
 
-- **Kernel Name**: Python 3.11.9 (.medical_diagnosis_py311)
-- **Environment**: `.medical_diagnosis_py311` virtual environment
-- **Python Path**: `G:/Msc/NCU/Doctoral Record/multimodal_medical_diagnosis/.medical_diagnosis_py311/Scripts/python.exe`
+- **Kernel Name**: Python 3.11.9 (.medical_diagnosis)
+- **Environment**: `.medical_diagnosis` virtual environment
+- **Python Path**: `G:/Msc/NCU/Doctoral Record/multimodal_medical_diagnosis/.medical_diagnosis/Scripts/python.exe`
 - **Package Access**: All installed packages available automatically
 
 ## 🚀 Usage Guide
@@ -593,7 +593,7 @@ Before running the notebooks, you need to download the Medical Speech dataset:
 
 ```bash
 # Activate virtual environment (if not already activated)
-.\.medical_diagnosis_py311\Scripts\Activate.ps1
+.\.medical_diagnosis\Scripts\Activate.ps1
 
 # Run the download script
 python data/download_medical_speech_dataset.py
@@ -819,11 +819,11 @@ The project includes pre-configured VS Code tasks for common operations:
 1. **Install Requirements**
 
    - Installs all Python packages from requirements.txt
-   - Uses the `.medical_diagnosis_py311` virtual environment
+   - Uses the `.medical_diagnosis` virtual environment
 
    ```bash
    # Or run manually:
-   ./.medical_diagnosis_py311/Scripts/python.exe -m pip install -r requirements.txt
+   ./.medical_diagnosis/Scripts/python.exe -m pip install -r requirements.txt
    ```
 2. **Update Requirements**
 
@@ -832,7 +832,7 @@ The project includes pre-configured VS Code tasks for common operations:
 
    ```bash
    # Or run manually:
-   ./.medical_diagnosis_py311/Scripts/python.exe -m pip freeze
+   ./.medical_diagnosis/Scripts/python.exe -m pip freeze
    ```
 3. **Format Python Files**
 
@@ -841,7 +841,7 @@ The project includes pre-configured VS Code tasks for common operations:
 
    ```bash
    # Or run manually:
-   ./.medical_diagnosis_py311/Scripts/python.exe -m black . --line-length=88
+   ./.medical_diagnosis/Scripts/python.exe -m black . --line-length=88
    ```
 4. **Sort Imports**
 
@@ -850,7 +850,7 @@ The project includes pre-configured VS Code tasks for common operations:
 
    ```bash
    # Or run manually:
-   ./.medical_diagnosis_py311/Scripts/python.exe -m isort .
+   ./.medical_diagnosis/Scripts/python.exe -m isort .
    ```
 5. **Download Spacy Model**
 
@@ -859,7 +859,7 @@ The project includes pre-configured VS Code tasks for common operations:
 
    ```bash
    # Or run manually:
-   ./.medical_diagnosis_py311/Scripts/python.exe -m spacy download en_core_web_sm
+   ./.medical_diagnosis/Scripts/python.exe -m spacy download en_core_web_sm
    ```
 6. **Run Jupyter Lab**
 
@@ -868,7 +868,7 @@ The project includes pre-configured VS Code tasks for common operations:
 
    ```bash
    # Or run manually:
-   ./.medical_diagnosis_py311/Scripts/python.exe -m jupyter lab
+   ./.medical_diagnosis/Scripts/python.exe -m jupyter lab
    ```
 7. **Check Python Environment**
 
@@ -877,7 +877,7 @@ The project includes pre-configured VS Code tasks for common operations:
 
    ```bash
    # Or run manually:
-   ./.medical_diagnosis_py311/Scripts/python.exe -c "import sys; print(f'Python {sys.version}'); print(f'Executable: {sys.executable}'); import pkg_resources; print(f'Installed packages: {len(list(pkg_resources.working_set))}')"
+   ./.medical_diagnosis/Scripts/python.exe -c "import sys; print(f'Python {sys.version}'); print(f'Executable: {sys.executable}'); import pkg_resources; print(f'Installed packages: {len(list(pkg_resources.working_set))}')"
    ```
 
 ### Advanced Usage
@@ -1251,7 +1251,7 @@ We welcome collaboration in the following areas:
 
 ```bash
 # Activate virtual environment
-.\.medical_diagnosis_py311\Scripts\Activate.ps1
+.\.medical_diagnosis\Scripts\Activate.ps1
 
 # Install missing package
 pip install librosa
@@ -1269,10 +1269,10 @@ pip install -r requirements.txt
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Then activate
-.\.medical_diagnosis_py311\Scripts\Activate.ps1
+.\.medical_diagnosis\Scripts\Activate.ps1
 
 # Or use Command Prompt instead
-.\.medical_diagnosis_py311\Scripts\activate.bat
+.\.medical_diagnosis\Scripts\activate.bat
 ```
 
 **Problem**: Wrong Python version
@@ -1329,7 +1329,7 @@ chmod 600 ~/.kaggle/kaggle.json
 pip install ipykernel
 
 # Register the kernel
-python -m ipykernel install --user --name=medical_diagnosis_py311 --display-name="Python 3.11.9 (medical_diagnosis)"
+python -m ipykernel install --user --name=medical_diagnosis --display-name="Python 3.11.9 (medical_diagnosis)"
 
 # Restart Jupyter and select the new kernel
 ```
@@ -1474,10 +1474,10 @@ plt.rcParams['figure.figsize'] = [12, 8]
 
 ```bash
 # Create fresh virtual environment
-python -m venv .medical_diagnosis_py311_new
+python -m venv .medical_diagnosis_new
 
 # Activate new environment
-.\.medical_diagnosis_py311_new\Scripts\Activate.ps1
+.\.medical_diagnosis_new\Scripts\Activate.ps1
 
 # Install requirements
 pip install -r requirements.txt
