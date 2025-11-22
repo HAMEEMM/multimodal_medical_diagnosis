@@ -170,9 +170,9 @@ results/
 plots/
 figures/
 *.png
-*.pdf
-*.docx
-*.pptx
+.pdf
+.docx
+.pptx
 
 # Temporary files
 tmp/
