@@ -73,21 +73,20 @@ This project implements a comprehensive **Multimodal Medical Diagnosis Research*
 ### 📚 Three Notebook Implementation
 
 1. **Text Classification** (`text_medical_diagnosis.ipynb`)
-
    - Pure NLP approach to symptom text analysis
    - Advanced text preprocessing and feature engineering
    - Multiple traditional ML and deep learning models
    - **Best Model**: Logistic Regression (Traditional ML)
    - **Result**: 91.72% F1-Score (Clinical threshold: PASSED ✅)
-2. **Audio Classification** (`audio_medical_diagnosis.ipynb`)
 
+2. **Audio Classification** (`audio_medical_diagnosis.ipynb`)
    - Pure acoustic feature extraction and analysis
    - Comprehensive audio signal processing
    - Traditional ML models optimized for audio features
    - **Best Model**: Logistic Regression (Traditional ML)
    - **Result**: 7.33% F1-Score (Clinical threshold: FAILED ❌)
-3. **Multimodal Classification** (`multimodal_medical_diagnosis.ipynb`)
 
+3. **Multimodal Classification** (`multimodal_medical_diagnosis.ipynb`)
    - Combined audio and text feature analysis
    - Feature fusion and multimodal learning
    - Enhanced performance through complementary modalities
@@ -161,38 +160,38 @@ This project implements a comprehensive **Multimodal Medical Diagnosis Research*
 
 The dataset includes diverse symptom categories representing real-world patient presentations:
 
-| Category                    | System/Type           | Examples                         |
-| --------------------------- | --------------------- | -------------------------------- |
+| Category              | System/Type           | Examples                         |
+| --------------------- | --------------------- | -------------------------------- |
 | **Pain Categories**   |                       |                                  |
-| Back pain                   | Musculoskeletal       | Lower back pain, upper back pain |
-| Head ache                   | Neurological          | Migraine, tension headache       |
-| Knee pain                   | Musculoskeletal/Joint | Knee injury, arthritis           |
-| Shoulder pain               | Musculoskeletal       | Rotator cuff, frozen shoulder    |
-| Neck pain                   | Musculoskeletal       | Neck stiffness, whiplash         |
-| Muscle pain                 | Musculoskeletal       | Muscle strain, myalgia           |
-| Foot ache                   | Musculoskeletal       | Plantar fasciitis, foot pain     |
-| Joint pain                  | Musculoskeletal       | Arthritis, joint inflammation    |
-| Internal pain               | General               | Abdominal pain, chest pain       |
+| Back pain             | Musculoskeletal       | Lower back pain, upper back pain |
+| Head ache             | Neurological          | Migraine, tension headache       |
+| Knee pain             | Musculoskeletal/Joint | Knee injury, arthritis           |
+| Shoulder pain         | Musculoskeletal       | Rotator cuff, frozen shoulder    |
+| Neck pain             | Musculoskeletal       | Neck stiffness, whiplash         |
+| Muscle pain           | Musculoskeletal       | Muscle strain, myalgia           |
+| Foot ache             | Musculoskeletal       | Plantar fasciitis, foot pain     |
+| Joint pain            | Musculoskeletal       | Arthritis, joint inflammation    |
+| Internal pain         | General               | Abdominal pain, chest pain       |
 | **Respiratory**       |                       |                                  |
-| Hard to breath              | Respiratory           | Dyspnea, shortness of breath     |
+| Hard to breath        | Respiratory           | Dyspnea, shortness of breath     |
 | **Digestive**         |                       |                                  |
-| Stomach ache                | Gastrointestinal      | Abdominal pain, gastritis        |
+| Stomach ache          | Gastrointestinal      | Abdominal pain, gastritis        |
 | **Skin Conditions**   |                       |                                  |
-| Skin issue                  | Dermatological        | Rash, irritation, inflammation   |
-| Acne                        | Dermatological        | Facial acne, body acne           |
-| Hair falling out            | Dermatological        | Hair loss, alopecia              |
+| Skin issue            | Dermatological        | Rash, irritation, inflammation   |
+| Acne                  | Dermatological        | Facial acne, body acne           |
+| Hair falling out      | Dermatological        | Hair loss, alopecia              |
 | **Systemic Symptoms** |                       |                                  |
-| Body feels weak             | General               | Fatigue, weakness, malaise       |
-| Feeling dizzy               | Neurological          | Vertigo, lightheadedness         |
-| Emotional pain              | Psychological         | Stress, anxiety, depression      |
+| Body feels weak       | General               | Fatigue, weakness, malaise       |
+| Feeling dizzy         | Neurological          | Vertigo, lightheadedness         |
+| Emotional pain        | Psychological         | Stress, anxiety, depression      |
 | **Injuries**          |                       |                                  |
-| Infected wound              | Traumatic/Infectious  | Wound infection, cellulitis      |
-| Injury from sports          | Traumatic             | Sports-related injuries          |
-| Open wound                  | Traumatic             | Laceration, cut, abrasion        |
+| Infected wound        | Traumatic/Infectious  | Wound infection, cellulitis      |
+| Injury from sports    | Traumatic             | Sports-related injuries          |
+| Open wound            | Traumatic             | Laceration, cut, abrasion        |
 | **Sensory**           |                       |                                  |
-| Blurry vision               | Ophthalmological      | Vision problems, eye strain      |
+| Blurry vision         | Ophthalmological      | Vision problems, eye strain      |
 | **Cardiovascular**    |                       |                                  |
-| Heart hurts                 | Cardiovascular        | Chest pain, cardiac symptoms     |
+| Heart hurts           | Cardiovascular        | Chest pain, cardiac symptoms     |
 
 **Dataset Balance**: The dataset shows class imbalance typical of real-world medical data, with pain-related conditions being most frequent. This reflects actual healthcare presentation patterns where musculoskeletal complaints are among the most common reasons for clinical visits.
 
@@ -494,7 +493,7 @@ python -c "import tensorflow as tf; print(f'TensorFlow version: {tf.__version__}
 # Windows PowerShell
 .\.medical_diagnosis\Scripts\Activate.ps1
 
-# Windows Command Prompt  
+# Windows Command Prompt
 .\.medical_diagnosis\Scripts\activate.bat
 
 # Linux/macOS (if environment exists on Unix systems)
@@ -572,7 +571,7 @@ jupyter lab
 
 # Notebooks are located in the notebooks/ directory:
 # - text_medical_diagnosis.ipynb
-# - audio_medical_diagnosis.ipynb  
+# - audio_medical_diagnosis.ipynb
 # - multimodal_medical_diagnosis.ipynb
 ```
 
@@ -790,25 +789,25 @@ Phase 6: Best Model Selection
 
 ### Expected Runtime
 
-| Notebook                            | Phase                    | Approximate Time         |
-| ----------------------------------- | ------------------------ | ------------------------ |
-| **Text Classification**       | Data Loading & EDA       | 2-5 minutes              |
-|                                     | Text Preprocessing       | 5-10 minutes             |
-|                                     | Model Training           | 10-30 minutes            |
-|                                     | Evaluation               | 2-5 minutes              |
-|                                     | **Total**          | **20-50 minutes**  |
-| **Audio Classification**      | Data Loading & EDA       | 5-10 minutes             |
-|                                     | Audio Feature Extraction | 30-60 minutes            |
-|                                     | Model Training           | 15-30 minutes            |
-|                                     | Evaluation               | 2-5 minutes              |
-|                                     | **Total**          | **50-105 minutes** |
-| **Multimodal Classification** | Data Loading             | 5-10 minutes             |
-|                                     | Feature Engineering      | 30-60 minutes            |
-|                                     | Model Training           | 20-40 minutes            |
-|                                     | Evaluation               | 5-10 minutes             |
-|                                     | **Total**          | **60-120 minutes** |
+| Notebook                      | Phase                    | Approximate Time   |
+| ----------------------------- | ------------------------ | ------------------ |
+| **Text Classification**       | Data Loading & EDA       | 2-5 minutes        |
+|                               | Text Preprocessing       | 5-10 minutes       |
+|                               | Model Training           | 10-30 minutes      |
+|                               | Evaluation               | 2-5 minutes        |
+|                               | **Total**                | **20-50 minutes**  |
+| **Audio Classification**      | Data Loading & EDA       | 5-10 minutes       |
+|                               | Audio Feature Extraction | 30-60 minutes      |
+|                               | Model Training           | 15-30 minutes      |
+|                               | Evaluation               | 2-5 minutes        |
+|                               | **Total**                | **50-105 minutes** |
+| **Multimodal Classification** | Data Loading             | 5-10 minutes       |
+|                               | Feature Engineering      | 30-60 minutes      |
+|                               | Model Training           | 20-40 minutes      |
+|                               | Evaluation               | 5-10 minutes       |
+|                               | **Total**                | **60-120 minutes** |
 
-*Note: Runtimes vary based on CPU/GPU, RAM, and system load*
+_Note: Runtimes vary based on CPU/GPU, RAM, and system load_
 
 ### VS Code Tasks
 
@@ -817,7 +816,6 @@ The project includes pre-configured VS Code tasks for common operations:
 #### Available Tasks (Access via `Ctrl+Shift+P` → `Tasks: Run Task`)
 
 1. **Install Requirements**
-
    - Installs all Python packages from requirements.txt
    - Uses the `.medical_diagnosis` virtual environment
 
@@ -825,8 +823,8 @@ The project includes pre-configured VS Code tasks for common operations:
    # Or run manually:
    ./.medical_diagnosis/Scripts/python.exe -m pip install -r requirements.txt
    ```
-2. **Update Requirements**
 
+2. **Update Requirements**
    - Lists all currently installed packages
    - Useful for generating updated requirements
 
@@ -834,8 +832,8 @@ The project includes pre-configured VS Code tasks for common operations:
    # Or run manually:
    ./.medical_diagnosis/Scripts/python.exe -m pip freeze
    ```
-3. **Format Python Files**
 
+3. **Format Python Files**
    - Formats all Python files using Black formatter
    - Line length: 88 characters
 
@@ -843,8 +841,8 @@ The project includes pre-configured VS Code tasks for common operations:
    # Or run manually:
    ./.medical_diagnosis/Scripts/python.exe -m black . --line-length=88
    ```
-4. **Sort Imports**
 
+4. **Sort Imports**
    - Organizes imports using isort
    - Ensures consistent import ordering
 
@@ -852,8 +850,8 @@ The project includes pre-configured VS Code tasks for common operations:
    # Or run manually:
    ./.medical_diagnosis/Scripts/python.exe -m isort .
    ```
-5. **Download Spacy Model**
 
+5. **Download Spacy Model**
    - Downloads the English language model for spaCy
    - Required for NLP text processing
 
@@ -861,8 +859,8 @@ The project includes pre-configured VS Code tasks for common operations:
    # Or run manually:
    ./.medical_diagnosis/Scripts/python.exe -m spacy download en_core_web_sm
    ```
-6. **Run Jupyter Lab**
 
+6. **Run Jupyter Lab**
    - Starts JupyterLab server (background task)
    - Access at http://localhost:8888
 
@@ -870,8 +868,8 @@ The project includes pre-configured VS Code tasks for common operations:
    # Or run manually:
    ./.medical_diagnosis/Scripts/python.exe -m jupyter lab
    ```
-7. **Check Python Environment**
 
+7. **Check Python Environment**
    - Verifies Python version and installed packages
    - Useful for troubleshooting
 
@@ -916,13 +914,12 @@ combined_prediction = predictor.predict(text_description, audio_file)
 ### Text Classification Pipeline
 
 1. **Text Preprocessing**
-
    - **Basic Cleaning**: Converts to lowercase, expands contractions (what's → what is, can't → cannot)
    - **Advanced NLP**: NLTK tokenization, lemmatization using WordNetLemmatizer
    - **Stopword Removal**: Filters common words while preserving medical terms (pain, ache, fever, swelling, rash)
    - **Feature Engineering**: TF-IDF vectorization with medical domain optimization
-2. **Model Architectures**
 
+2. **Model Architectures**
    - **Traditional ML**:
      - **Random Forest (RF)**: Ensemble of decision trees
      - **Support Vector Machine (SVM)**: Kernel-based classification
@@ -932,8 +929,8 @@ combined_prediction = predictor.predict(text_description, audio_file)
      - **CNN**: Convolutional Neural Network with text embeddings
      - **FNN**: Feedforward Neural Network with dense layers
    - **Best Performance**: Logistic Regression achieving 91.72% F1-Score
-3. **Evaluation Framework**
 
+3. **Evaluation Framework**
    - **Metrics**: Accuracy, Precision, Recall, F1-Score, Cohen's Kappa, Matthews Correlation
    - **Cross-validation**: Stratified K-fold for robust performance estimation
    - **Threshold Analysis**: Clinical deployment threshold (75% minimum)
@@ -941,7 +938,6 @@ combined_prediction = predictor.predict(text_description, audio_file)
 ### Audio Classification Pipeline
 
 1. **Audio Feature Extraction**
-
    - **MFCCs**: 13 Mel-frequency cepstral coefficients capturing spectral envelope
    - **Spectral Features**:
      - Spectral centroid (brightness)
@@ -951,13 +947,13 @@ combined_prediction = predictor.predict(text_description, audio_file)
    - **Harmonic Features**: Chroma features for tonal content
    - **Tonnetz Features**: Harmonic network analysis
    - **Statistical Features**: Mean, standard deviation, skewness, kurtosis for each feature
-2. **Data Preprocessing**
 
+2. **Data Preprocessing**
    - **Audio Loading**: Librosa for consistent WAV file processing
    - **Feature Standardization**: StandardScaler for normalized feature ranges
    - **Quality Control**: Audio quality and noise level assessment
-3. **Model Architectures**
 
+3. **Model Architectures**
    - **Traditional ML**:
      - **Random Forest (RF)**: Ensemble of decision trees for audio features
      - **Support Vector Machine (SVM)**: Kernel-based classification
@@ -972,13 +968,12 @@ combined_prediction = predictor.predict(text_description, audio_file)
 ### Multimodal (Audio + Text) Classification Pipeline
 
 1. **Feature Integration**
-
    - **Text Component**: Full NLP preprocessing pipeline from text classification
    - **Audio Component**: Complete acoustic feature extraction from audio classification
    - **Feature Fusion**: Combined feature vector leveraging both modalities
    - **Dimensionality Management**: Optimized feature selection for computational efficiency
-2. **Model Architecture**
 
+2. **Model Architecture**
    - **Traditional ML Models**:
      - **Random Forest (RF)**: Ensemble classifier for fused features
      - **Support Vector Machine (SVM)**: Kernel-based multimodal classification
@@ -989,8 +984,8 @@ combined_prediction = predictor.predict(text_description, audio_file)
      - **FNN**: Feedforward Neural Network with feature fusion
    - **Enhanced Performance**: Multimodal approach significantly improves upon audio-only classification
    - **Best Performance**: CNN achieving 83.85% F1-Score (exceeds high-performance threshold)
-3. **Integration Strategy**
 
+3. **Integration Strategy**
    - **Early Fusion**: Feature-level combination before model training
    - **Balanced Weighting**: Equal consideration of text and audio features
    - **Robust Validation**: Cross-modal performance verification
@@ -1021,14 +1016,14 @@ combined_prediction = predictor.predict(text_description, audio_file)
 
 **Research Question 1**: What is the effectiveness of the NLP algorithm in classifying patient symptoms from the text data on the population level?
 
-| Model               | Accuracy         | Precision        | Recall           | F1-Score         | Status |
-| ------------------- | ---------------- | ---------------- | ---------------- | ---------------- | ------ |
+| Model               | Accuracy   | Precision  | Recall     | F1-Score   | Status |
+| ------------------- | ---------- | ---------- | ---------- | ---------- | ------ |
 | Logistic Regression | **91.79%** | **92.16%** | **91.79%** | **91.72%** | ✅     |
-| Random Forest       | ~90%             | ~90%             | ~90%             | ~90%             | ✅     |
-| SVM                 | ~89%             | ~89%             | ~89%             | ~89%             | ✅     |
-| Naive Bayes         | ~85%             | ~85%             | ~85%             | ~85%             | ✅     |
-| CNN                 | ~88%             | ~88%             | ~88%             | ~88%             | ✅     |
-| FNN                 | ~87%             | ~87%             | ~87%             | ~87%             | ✅     |
+| Random Forest       | ~90%       | ~90%       | ~90%       | ~90%       | ✅     |
+| SVM                 | ~89%       | ~89%       | ~89%       | ~89%       | ✅     |
+| Naive Bayes         | ~85%       | ~85%       | ~85%       | ~85%       | ✅     |
+| CNN                 | ~88%       | ~88%       | ~88%       | ~88%       | ✅     |
+| FNN                 | ~87%       | ~87%       | ~87%       | ~87%       | ✅     |
 
 **Outcome**: **H1a ACCEPTED** (Alternative hypothesis accepted)
 
@@ -1040,14 +1035,14 @@ combined_prediction = predictor.predict(text_description, audio_file)
 
 **Research Question 2**: How effective is NLP in classifying patient symptoms from audio data on the population level?
 
-| Model               | Accuracy        | Precision       | Recall          | F1-Score        | Status |
-| ------------------- | --------------- | --------------- | --------------- | --------------- | ------ |
+| Model               | Accuracy  | Precision | Recall    | F1-Score  | Status |
+| ------------------- | --------- | --------- | --------- | --------- | ------ |
 | Logistic Regression | **8.13%** | **8.45%** | **8.13%** | **7.33%** | ❌     |
-| Random Forest       | ~7%             | ~7%             | ~7%             | ~6%             | ❌     |
-| SVM                 | ~7%             | ~7%             | ~7%             | ~6%             | ❌     |
-| Naive Bayes         | ~6%             | ~6%             | ~6%             | ~5%             | ❌     |
-| CNN                 | ~7%             | ~7%             | ~7%             | ~6%             | ❌     |
-| FNN                 | ~6%             | ~6%             | ~6%             | ~5%             | ❌     |
+| Random Forest       | ~7%       | ~7%       | ~7%       | ~6%       | ❌     |
+| SVM                 | ~7%       | ~7%       | ~7%       | ~6%       | ❌     |
+| Naive Bayes         | ~6%       | ~6%       | ~6%       | ~5%       | ❌     |
+| CNN                 | ~7%       | ~7%       | ~7%       | ~6%       | ❌     |
+| FNN                 | ~6%       | ~6%       | ~6%       | ~5%       | ❌     |
 
 **Outcome**: **H20 ACCEPTED** (Null hypothesis accepted)
 
@@ -1060,14 +1055,14 @@ combined_prediction = predictor.predict(text_description, audio_file)
 
 **Research Question 3**: How effective is NLP in classifying patient symptoms from combining audio and text data on the population level?
 
-| Model               | Accuracy         | Precision        | Recall           | F1-Score         | Status |
-| ------------------- | ---------------- | ---------------- | ---------------- | ---------------- | ------ |
+| Model               | Accuracy   | Precision  | Recall     | F1-Score   | Status |
+| ------------------- | ---------- | ---------- | ---------- | ---------- | ------ |
 | CNN                 | **85.07%** | **86.62%** | **85.07%** | **83.85%** | ✅     |
-| FNN                 | ~83%             | ~84%             | ~83%             | ~83%             | ✅     |
-| Logistic Regression | ~80%             | ~81%             | ~80%             | ~80%             | ✅     |
-| Random Forest       | ~78%             | ~79%             | ~78%             | ~78%             | ✅     |
-| SVM                 | ~77%             | ~78%             | ~77%             | ~77%             | ✅     |
-| Naive Bayes         | ~75%             | ~76%             | ~75%             | ~75%             | ✅     |
+| FNN                 | ~83%       | ~84%       | ~83%       | ~83%       | ✅     |
+| Logistic Regression | ~80%       | ~81%       | ~80%       | ~80%       | ✅     |
+| Random Forest       | ~78%       | ~79%       | ~78%       | ~78%       | ✅     |
+| SVM                 | ~77%       | ~78%       | ~77%       | ~77%       | ✅     |
+| Naive Bayes         | ~75%       | ~76%       | ~75%       | ~75%       | ✅     |
 
 **Outcome**: **H3a ACCEPTED** (Alternative hypothesis accepted)
 
@@ -1078,11 +1073,11 @@ combined_prediction = predictor.predict(text_description, audio_file)
 
 ### Performance Summary by Modality
 
-| Classification Type    | Best Model          | F1-Score         | Clinical Threshold (75%) | Deployment Ready |
-| ---------------------- | ------------------- | ---------------- | ------------------------ | ---------------- |
-| **Text Only**    | Logistic Regression | **91.72%** | ✅ PASSED                | ✅ YES           |
-| **Audio Only**   | Logistic Regression | **7.33%**  | ❌ FAILED                | ❌ NO            |
-| **Audio + Text** | CNN                 | **83.85%** | ✅ PASSED                | ✅ YES           |
+| Classification Type | Best Model          | F1-Score   | Clinical Threshold (75%) | Deployment Ready |
+| ------------------- | ------------------- | ---------- | ------------------------ | ---------------- |
+| **Text Only**       | Logistic Regression | **91.72%** | ✅ PASSED                | ✅ YES           |
+| **Audio Only**      | Logistic Regression | **7.33%**  | ❌ FAILED                | ❌ NO            |
+| **Audio + Text**    | CNN                 | **83.85%** | ✅ PASSED                | ✅ YES           |
 
 ### Research Hypothesis Outcomes
 
@@ -1136,18 +1131,17 @@ Based on the comprehensive evaluation:
 #### Clinical Integration
 
 1. **Real-time Inference Research**
-
    - REST API for model serving
    - WebSocket for streaming predictions
    - Cloud deployment (AWS SageMaker, Azure ML, Google Vertex AI)
    - Edge deployment for privacy-sensitive environments
-2. **Electronic Health Record (EHR) Integration**
 
+2. **Electronic Health Record (EHR) Integration**
    - FHIR (Fast Healthcare Interoperability Resources) compliance
    - HL7 integration for healthcare systems
    - Secure data exchange protocols (HIPAA compliant)
-3. **Clinical Decision Support Research (CDSS)**
 
+3. **Clinical Decision Support Research (CDSS)**
    - Confidence-based recommendations
    - Explainable AI for clinical transparency
    - Alert system for high-risk predictions
@@ -1156,13 +1150,12 @@ Based on the comprehensive evaluation:
 #### Model Interpretability
 
 1. **Explainability Methods**
-
    - SHAP (SHapley Additive exPlanations) values
    - LIME (Local Interpretable Model-agnostic Explanations)
    - Integrated Gradients for deep learning
    - Attention visualization for transformer models
-2. **Clinical Validation**
 
+2. **Clinical Validation**
    - Prospective clinical trials
    - Inter-rater reliability studies with physicians
    - Performance monitoring in real-world settings
@@ -1173,18 +1166,17 @@ Based on the comprehensive evaluation:
 #### Expanded Capabilities
 
 1. **Multi-language Support**
-
    - Cross-lingual models (mBERT, XLM-RoBERTa)
    - Language-specific fine-tuning
    - Translation-based approaches
-2. **Additional Modalities**
 
+2. **Additional Modalities**
    - Medical imaging integration (X-rays, MRIs, CT scans)
    - Vital signs incorporation (heart rate, blood pressure, temperature)
    - Wearable device data (activity, sleep, physiological signals)
    - Video analysis for patient behavior and body language
-3. **Temporal Modeling**
 
+3. **Temporal Modeling**
    - Longitudinal patient tracking
    - Disease progression prediction
    - Treatment response monitoring
@@ -1193,18 +1185,17 @@ Based on the comprehensive evaluation:
 #### Research Extensions
 
 1. **New Medical Domains**
-
    - Mental health assessment (depression, anxiety screening)
    - Chronic disease management (diabetes, cardiovascular)
    - Emergency triage severity classification
    - Post-operative monitoring
-2. **Personalization**
 
+2. **Personalization**
    - Patient-specific model adaptation
    - Demographic-aware predictions
    - Genetic and environmental factor integration
-3. **Federated Learning**
 
+3. **Federated Learning**
    - Privacy-preserving multi-institutional learning
    - Model training without centralized data
    - Healthcare consortium collaboration
@@ -1212,18 +1203,17 @@ Based on the comprehensive evaluation:
 #### Ethical and Regulatory Considerations
 
 1. **Regulatory Approval**
-
    - FDA 510(k) clearance for medical devices
    - CE marking for European markets
    - Clinical validation studies for regulatory submission
-2. **Ethical AI**
 
+2. **Ethical AI**
    - Bias detection and mitigation
    - Fairness across demographic groups
    - Privacy-preserving techniques (differential privacy)
    - Transparent AI governance
-3. **Safety and Monitoring**
 
+3. **Safety and Monitoring**
    - Continuous performance monitoring
    - Adverse event reporting system
    - Model updating protocols
@@ -1808,24 +1798,24 @@ If you use this work in your research, please cite:
 #### APA Format
 
 ```
-Mahdi, H. (2025). Multimodal medical diagnosis research: Leveraging audio and text 
-    classification for clinical decision support [Doctoral dissertation, National 
+Mahdi, H. (2025). Multimodal medical diagnosis research: Leveraging audio and text
+    classification for clinical decision support [Doctoral dissertation, National
     University]. GitHub. https://github.com/HAMEEMM/multimodal_medical_diagnosis
 ```
 
 #### IEEE Format
 
 ```
-H. Mahdi, "Multimodal medical diagnosis research: Leveraging audio and text 
-    classification for clinical decision support," Ph.D. dissertation, Dept. 
+H. Mahdi, "Multimodal medical diagnosis research: Leveraging audio and text
+    classification for clinical decision support," Ph.D. dissertation, Dept.
     Data Science, National University, San Diego, CA, 2025.
 ```
 
 #### MLA Format
 
 ```
-Mahdi, Hameem. Multimodal Medical Diagnosis Research: Leveraging Audio and Text 
-    Classification for Clinical Decision Support. 2025. National University, 
+Mahdi, Hameem. Multimodal Medical Diagnosis Research: Leveraging Audio and Text
+    Classification for Clinical Decision Support. 2025. National University,
     PhD dissertation.
 ```
 
@@ -1843,6 +1833,8 @@ When using the Medical Speech dataset, please also cite the original source:
 }
 ```
 
+### https://doi.org/10.5281/zenodo.15056989
+
 ---
 
 <div align="center">
@@ -1855,5 +1847,3 @@ When using the Medical Speech dataset, please also cite the original source:
 **Built with ❤️ for healthcare innovation**
 
 </div>
-
-https://doi.org/10.5281/zenodo.15056989
